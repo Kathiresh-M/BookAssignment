@@ -11,17 +11,17 @@ namespace Contract.IHelper
     public interface IAddressBookRepo
     {
         void CreateAddressBook(AddressBookDto addressBookData);
-        AddressBook GetAddressBookByName(string firstName, string lastName);
+        AddressBookDatabase GetAddressBookByName(string firstName, string lastName);
 
-        AddressBook GetAddressBookById(Guid AddressBookId);
+        AddressBookDatabase GetAddressBookById(Guid AddressBookId);
 
         int GetAddressBookCount(Guid userId);
 
-        void DeleteAddressBook(AddressBook addressBook);
+        void DeleteAddressBook(AddressBookDatabase addressBook);
 
-        public List<AddressBook> GetAddressBooks(Guid userId);
+        public List<AddressBookDatabase> GetAddressBooks(Guid userId);
 
-        void UpdateAddressBook(AddressBook addressBook, IEnumerable<Email> Emails, IEnumerable<Address> Addresses, IEnumerable<Phone> Phones);
+        void UpdateAddressBook(AddressBookDatabase addressBook, IEnumerable<Email> Emails, IEnumerable<Address> Addresses, IEnumerable<Phone> Phones);
         void Save();
     }
 }

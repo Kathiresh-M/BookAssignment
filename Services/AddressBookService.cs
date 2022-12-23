@@ -45,10 +45,11 @@ namespace Services
         }
         public AddressBookAddResponse CreateAddressBook(AddressBookCreateDto addressBookData, Guid userId)
         {
-            var addressBookCheck = _addressBookRepo.GetAddressBookByName(addressBookData.FirstName, addressBookData.LastName);
-
+            _log.Info("CreateAddressBook in AddressBook service layer");
             try
             {
+                var addressBookCheck = _addressBookRepo.GetAddressBookByName(addressBookData.FirstName, addressBookData.LastName);
+
                 //if (addressBookCheck != null && addressBookCheck.UserId == userId)
                 //    return new AddressBookAddResponse(false, "Address book already exists with same first and last name.", null);
                 _log.Info("Email start to add");
@@ -103,11 +104,12 @@ namespace Services
 
                 _addressBookRepo.Save();
 
-                return new AddressBookAddResponse(true, "", addressBook);
                 _log.Info("Address Book is entered successfully");
+                return new AddressBookAddResponse(true, "", addressBook);
             }
             catch
             {
+
                 return new AddressBookAddResponse(false, "Address book already exists with same first and last name.", null);
             }
         }
@@ -115,47 +117,57 @@ namespace Services
         //GetAddressBook
         public AddressBookResponse GetAddressBook(Guid addressBookId, Guid tokenUserId)
         {
-
-            var addressBook = _addressBookRepo.GetAddressBookById(addressBookId);
-
-            if (addressBook == null)
+            try
             {
-                return new AddressBookResponse(false, "Address book not found", null);
+                _log.Info("GetAddressBook using addressBookId and UserId in service layer");
+                var addressBook = _addressBookRepo.GetAddressBookById(addressBookId);
+
+                if (addressBook == null)
+                {
+                    return new AddressBookResponse(false, "Address book not found", null);
+                }
+
+                if (addressBook.UserId != tokenUserId)
+                {
+                    return new AddressBookResponse(false, "User has no access to address book", null);
+                }
+
+                _log.Info("Get Email in service layer");
+                var emailsListToReturn = getEmails(addressBookId);
+                _log.Info("Get Phone in service layer");
+                var phonesListToReturn = getPhones(addressBookId);
+                _log.Info("Get Address in service layer");
+                var addressListToReturn = getAddresses(addressBookId);
+                _log.Info("Get Asset Id in service layer");
+                var asset = _assetRepo.GetAssetByAddressBookId(addressBookId);
+
+                if (asset == null)
+                    asset = new Asset();
+
+                var addressBookToReturn = new AddressBookReturnDto()
+                {
+                    Id = addressBook.Id,
+                    FirstName = addressBook.FirstName,
+                    LastName = addressBook.LastName,
+                    Emails = emailsListToReturn,
+                    Phones = phonesListToReturn,
+                    Addresses = addressListToReturn,
+                    AssetDTO = new AssetIdDto() { FileId = asset.Id }
+                };
+
+                _log.Info("get data in service layer and sent data to controller.");
+                return new AddressBookResponse(true, "", addressBookToReturn);
             }
-
-            if (addressBook.UserId != tokenUserId)
+            catch
             {
-                return new AddressBookResponse(false, "User has no access to address book", null);
+                return new AddressBookResponse(false, "Something wrong please check your code", null);
             }
-
-            var emailsListToReturn = getEmails(addressBookId);
-
-            var phonesListToReturn = getPhones(addressBookId);
-
-            var addressListToReturn = getAddresses(addressBookId);
-
-            var asset = _assetRepo.GetAssetByAddressBookId(addressBookId);
-
-            if (asset == null)
-                asset = new Asset();
-
-            var addressBookToReturn = new AddressBookReturnDto()
-            {
-                Id = addressBook.Id,
-                FirstName = addressBook.FirstName,
-                LastName = addressBook.LastName,
-                Emails = emailsListToReturn,
-                Phones = phonesListToReturn,
-                Addresses = addressListToReturn,
-                AssetDTO = new AssetIdDto() { FileId = asset.Id }
-            };
-
-            return new AddressBookResponse(true, "", addressBookToReturn);
         }
 
         //GetAddressBook
         public PagedList<AddressBookReturnDto> GetAddressBooks(Guid userId, AddressBookResource resourceParameter)
         {
+            _log.Info("Get All AddressBook using User Id and Url");
             var user = _userRepo.GetUser(userId);
 
             if (user == null)
@@ -208,19 +220,23 @@ namespace Services
         //Update AddressBook
         public AddressBookAddResponse UpdateAddressBook(AddressBookUpdateDto addressBookData, Guid addressBookId, Guid userId)
         {
+            _log.Info("UpdateAddressBook in service layer");   
             var addressBookCheck = _addressBookRepo.GetAddressBookById(addressBookId);
 
-            if (addressBookCheck == null && addressBookCheck.UserId == userId)
+            if (addressBookCheck == null)
                 return new AddressBookAddResponse(false, "Address book not found", null);
 
+            _log.Info("UpdateEmail in UpdateAddressBook method");
             var emailsUpdated = UpdateEmails(addressBookData.Emails, addressBookId);
             if (!emailsUpdated.IsSuccess)
                 return new AddressBookAddResponse(false, emailsUpdated.Message, null);
 
+            _log.Info("UpdatePhone in UpdateAddressBook method");
             var phonesUpdated = UpdatePhones(addressBookData.Phones, addressBookId);
             if (!phonesUpdated.IsSuccess)
                 return new AddressBookAddResponse(false, phonesUpdated.Message, null);
 
+            _log.Info("UpdateAddress in UpdateAddressBook method");
             var addressUpdated = UpdateAddresses(addressBookData.Addresses, addressBookId);
             if (!addressUpdated.IsSuccess)
                 return new AddressBookAddResponse(false, addressUpdated.Message, null);
@@ -232,16 +248,19 @@ namespace Services
 
             _addressBookRepo.Save();
 
+            _log.Info("Save Updated Data and sent to controller");
             return new AddressBookAddResponse(true, "", null);
         }
 
         //Delete AddressBook
         public MessageResponse DeleteAddressBook(Guid addressBookId, Guid userId)
         {
+            _log.Info("Delete AddressBook using AddressBookId and Use Id in DeleteAddressBook Method (Service Layer)");
             var addressBook = _addressBookRepo.GetAddressBookById(addressBookId);
 
             if (addressBook == null)
                 return new MessageResponse(false, "Address book not found");
+
 
             if (addressBook.UserId != userId)
                 return new MessageResponse(false, "User not having access");
@@ -249,14 +268,21 @@ namespace Services
             _addressBookRepo.DeleteAddressBook(addressBook);
             _addressBookRepo.Save();
 
+            _log.Info("Delete the AddressBook Data and sent to controller");
             return new MessageResponse(true, null);
         }
+
 
         //Get Count
         public CountResponse GetCount(Guid userId)
         {
-
+            _log.Info("Get AddressBook Count");
             var count = _addressBookRepo.GetAddressBookCount(userId);
+
+            if(count == 0)
+            {
+                return new CountResponse(false, null, new CountDto { Count = count });
+            }
 
             return new CountResponse(true, null, new CountDto { Count = count });
         }
@@ -295,12 +321,12 @@ namespace Services
 
             for (int i = 0; i < emails.Count(); i++)
             {
-                var refTerm = emailTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == emails.ElementAt(i).Type.Key.ToLower());
+                var refTerm = emailTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == emails.ElementAt(i).Keyrefence.Key.ToLower());
                 if (refTerm == null)
-                    return new EmailResponse(false, $"Key {emails.ElementAt(i).Type.Key} was not found.", null);
+                    return new EmailResponse(false, $"Key {emails.ElementAt(i).Keyrefence.Key} was not found.", null);
                 var mapping = emailRefTermsWithMapping.SingleOrDefault(mapping => mapping.RefTermId == refTerm.Id);
                 if (mapping == null)
-                    return new EmailResponse(false, $"Key {emails.ElementAt(i).Type.Key} was not found.", null);
+                    return new EmailResponse(false, $"Key {emails.ElementAt(i).Keyrefence.Key} was not found.", null);
 
                 emailsList.Add(new Email
                 {
@@ -346,12 +372,12 @@ namespace Services
 
             for (int i = 0; i < phones.Count(); i++)
             {
-                var refTerm = phoneTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == phones.ElementAt(i).Type.Key.ToLower());
+                var refTerm = phoneTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == phones.ElementAt(i).Phonereference.Key.ToLower());
                 if (refTerm == null)
-                    return new PhoneResponse(false, $"Key {phones.ElementAt(i).Type.Key} was not found.", null);
+                    return new PhoneResponse(false, $"Key {phones.ElementAt(i).Phonereference.Key} was not found.", null);
                 var mapping = phoneRefTermsWithMapping.SingleOrDefault(mapping => mapping.RefTermId == refTerm.Id);
                 if (mapping == null)
-                    return new PhoneResponse(false, $"Key {phones.ElementAt(i).Type.Key} was not found.", null);
+                    return new PhoneResponse(false, $"Key {phones.ElementAt(i).Phonereference.Key} was not found.", null);
 
                 phonesList.Add(new Phone
                 {
@@ -380,19 +406,19 @@ namespace Services
             {
                 var address = addresses.ElementAt(i);
 
-                var addressRefTerm = addressTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == address.Type.Key.ToLower());
+                var addressRefTerm = addressTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == address.Addresstype.Key.ToLower());
                 if (addressRefTerm == null)
-                    return new AddressResponse(false, $"Key {address.Type.Key} was not found.", null);
+                    return new AddressResponse(false, $"Key {address.Addresstype.Key} was not found.", null);
                 var addressMapping = addressRefTermsWithMapping.SingleOrDefault(mapping => mapping.RefTermId == addressRefTerm.Id);
                 if (addressMapping == null)
-                    return new AddressResponse(false, $"Key {address.Type.Key} was not found.", null);
+                    return new AddressResponse(false, $"Key {address.Addresstype.Key} was not found.", null);
 
-                var countryRefTerm = countryTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == address.Country.Key.ToLower());
+                var countryRefTerm = countryTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == address.Countrytype.Key.ToLower());
                 if (countryRefTerm == null)
-                    return new AddressResponse(false, $"Key {address.Country.Key} was not found.", null);
+                    return new AddressResponse(false, $"Key {address.Countrytype.Key} was not found.", null);
                 var countryMapping = countryRefTermsWithMapping.SingleOrDefault(mapping => mapping.RefTermId == countryRefTerm.Id);
                 if (countryMapping == null)
-                    return new AddressResponse(false, $"Key {address.Country.Key} was not found.", null);
+                    return new AddressResponse(false, $"Key {address.Countrytype.Key} was not found.", null);
 
                 addressesList.Add(new Address
                 {
@@ -423,7 +449,7 @@ namespace Services
                 {
                     Id = email.Id,
                     EmailAddress = email.EmailAddress,
-                    Type = new Entities.Dto.Type() { Key = refTerm.Key }
+                    Keyrefence = new Entities.Dto.Keyrefence() { Key = refTerm.Key }
                 });
             }
 
@@ -442,7 +468,7 @@ namespace Services
                 {
                     Id = phone.Id,
                     PhoneNumber = phone.PhoneNumber,
-                    Type = new Entities.Dto.Type() { Key = refTerm.Key }
+                    Phonereference = new Entities.Dto.Phonereference() { Key = refTerm.Key }
                 });
             }
 
@@ -467,8 +493,8 @@ namespace Services
                     City = address.City,
                     StateName = address.StateName,
                     ZipCode = address.ZipCode,
-                    Type = new Entities.Dto.Type() { Key = typeRefTerm.Key },
-                    Country = new Entities.Dto.Type() { Key = countryRefTerm.Key },
+                    Addresstype = new Entities.Dto.Addresstype() { Key = typeRefTerm.Key },
+                    Countrytype = new Entities.Dto.Countrytype() { Key = countryRefTerm.Key },
                 });
             }
 
@@ -529,12 +555,12 @@ namespace Services
 
             for (int i = 0; i < emails.Count(); i++)
             {
-                var refTerm = emailTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == emails.ElementAt(i).Type.Key.ToLower());
+                var refTerm = emailTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == emails.ElementAt(i).Keyrefence.Key.ToLower());
                 if (refTerm == null)
-                    return new EmailResponse(false, $"Key {emails.ElementAt(i).Type.Key} was not found.", null);
+                    return new EmailResponse(false, $"Key {emails.ElementAt(i).Keyrefence.Key} was not found.", null);
                 var mapping = emailRefTermsWithMapping.SingleOrDefault(mapping => mapping.RefTermId == refTerm.Id);
                 if (mapping == null)
-                    return new EmailResponse(false, $"Key {emails.ElementAt(i).Type.Key} was not found.", null);
+                    return new EmailResponse(false, $"Key {emails.ElementAt(i).Keyrefence.Key} was not found.", null);
 
                 emailsList.Add(new Email
                 {
@@ -609,12 +635,12 @@ namespace Services
 
             for (int i = 0; i < phones.Count(); i++)
             {
-                var refTerm = phoneTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == phones.ElementAt(i).Type.Key.ToLower());
+                var refTerm = phoneTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == phones.ElementAt(i).Phonereference.Key.ToLower());
                 if (refTerm == null)
-                    return new PhoneResponse(false, $"Key {phones.ElementAt(i).Type.Key} was not found.", null);
+                    return new PhoneResponse(false, $"Key {phones.ElementAt(i).Phonereference.Key} was not found.", null);
                 var mapping = phoneRefTermsWithMapping.SingleOrDefault(mapping => mapping.RefTermId == refTerm.Id);
                 if (mapping == null)
-                    return new PhoneResponse(false, $"Key {phones.ElementAt(i).Type.Key} was not found.", null);
+                    return new PhoneResponse(false, $"Key {phones.ElementAt(i).Phonereference.Key} was not found.", null);
 
                 phonesList.Add(new Phone
                 {
@@ -662,19 +688,19 @@ namespace Services
             {
                 var address = addresses.ElementAt(i);
 
-                var addressRefTerm = addressTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == address.Type.Key.ToLower());
+                var addressRefTerm = addressTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == address.Addresstype.Key.ToLower());
                 if (addressRefTerm == null)
-                    return new AddressResponse(false, $"Key {address.Type.Key} was not found.", null);
+                    return new AddressResponse(false, $"Key {address.Addresstype.Key} was not found.", null);
                 var addressMapping = addressRefTermsWithMapping.SingleOrDefault(mapping => mapping.RefTermId == addressRefTerm.Id);
                 if (addressMapping == null)
-                    return new AddressResponse(false, $"Key {address.Type.Key} was not found.", null);
+                    return new AddressResponse(false, $"Key {address.Addresstype.Key} was not found.", null);
 
-                var countryRefTerm = countryTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == address.Country.Key.ToLower());
+                var countryRefTerm = countryTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == address.Countrytype.Key.ToLower());
                 if (countryRefTerm == null)
-                    return new AddressResponse(false, $"Key {address.Country.Key} was not found.", null);
+                    return new AddressResponse(false, $"Key {address.Countrytype.Key} was not found.", null);
                 var countryMapping = countryRefTermsWithMapping.SingleOrDefault(mapping => mapping.RefTermId == countryRefTerm.Id);
                 if (countryMapping == null)
-                    return new AddressResponse(false, $"Key {address.Country.Key} was not found.", null);
+                    return new AddressResponse(false, $"Key {address.Countrytype.Key} was not found.", null);
 
                 addressesList.Add(new Address
                 {

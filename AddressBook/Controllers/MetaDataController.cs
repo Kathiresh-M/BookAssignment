@@ -5,10 +5,12 @@ using Entities.Dto;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace AddressBook.Controllers
+
+namespace AddressBookAssignment.Controllers
 {
     [ApiController]
     [Authorize]
@@ -16,18 +18,16 @@ namespace AddressBook.Controllers
     {
         private readonly IRefSetService _refSetService;
         private readonly IRefTermService _refTermService;
-        private readonly ILogger<MetaDataController> _logger;
+
         private readonly ILog _log;
         private readonly IMapper _mapper;
 
         public MetaDataController(IRefSetService refSetService,
-            IRefTermService refTermService, IMapper mapper,
-            ILogger<MetaDataController> logger)
+            IRefTermService refTermService, IMapper mapper)
         {
             _refSetService = refSetService;
             _refTermService = refTermService;
             _mapper = mapper;
-            _logger = logger;
             _log = LogManager.GetLogger(typeof(MetaDataController));
         }
 
@@ -38,20 +38,24 @@ namespace AddressBook.Controllers
         /// <param name="Id">Id of reference set</param>
         /// <returns>refernce set data</returns>
         [HttpGet]
-        [Route("api/metadata/refset/{id}")]
+        [Route("api/metadata/refsetdetails/{id}")]
         public IActionResult GetRefSet(Guid Id)
         {
-            Guid tokenUserId;
-            Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
+            _log.Info("Get RefSet ");
+
+            Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
+            //Guid tokenUserId;
+            //Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
 
             if (Id == null || Id == Guid.Empty)
             {
                 _log.Info("Invalid ref set id was given in GetRef API by user Id: " + tokenUserId);
-                return BadRequest("Invalid ref set id");
+                return NotFound("Invalid ref set id");
             }
 
             try
             {
+                _log.Info("Get RefSet By Id");
                 var response = _refSetService.GetRefSetById(Id);
                
                 var refSetToReturn = _mapper.Map<RefSetToReturnDto>(response.RefSet);
@@ -60,6 +64,7 @@ namespace AddressBook.Controllers
             }
             catch (Exception ex)
             {
+                _log.Error("Not Found Exception check you code");
                 return NotFound("Not found exception please check your code" + ex);
             }
         }
@@ -76,7 +81,7 @@ namespace AddressBook.Controllers
             if (!ModelState.IsValid)
             {
                 _log.Error("Invalid refSet data given in AddRefSet API controller.");
-                return BadRequest("Invalid Ref Set data.");
+                return BadRequest("The refsetData field is required");
             }
 
             try
@@ -92,7 +97,10 @@ namespace AddressBook.Controllers
 
                 var refSetToReturn = _mapper.Map<RefSetToReturnDto>(response.RefSet);
 
-                return CreatedAtRoute("GetRefSet", new { Id = refSetToReturn.Id }, refSetToReturn);
+                //return CreatedAtRoute("GetRefSet", new { Id = refSetToReturn.Id }, refSetToReturn);
+                CreatedAtRoute("GetRefSet", new { Id = refSetToReturn.Id }, refSetToReturn);
+
+                return Ok(refSetToReturn);
             }
             catch (Exception ex)
             {
@@ -242,16 +250,41 @@ namespace AddressBook.Controllers
             return Ok(refSetToReturn);
         }
 
+        /// <summary>
+        /// Method to get list of reference term under a refernce set
+        /// </summary>
+        /// <param name="reftermkey">reference set Id</param>
+        /// <returns>return key reference</returns>
         [HttpGet]
-        [Route("{key}")]
+        [Route("api/metadata/refset/{key}")]
         public IActionResult Mappingdata(string key)
         {
-            Guid tokenUserId;
-            Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
+            _log.Info("MetaData Key Reference start");
 
-            var response = _refSetService.Metadata(key);
-            return Ok(response);
+            //Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
+
+            //Guid tokenUserId;
+            //Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
+
+            try
+            {
+                var response = _refSetService.Metadata(key);
+
+                if (response.Id == Guid.Empty)
+                {
+                    _log.Error("Key is not found");
+                    return NotFound("Key not found");
+                }
+
+                _log.Info("MetaData Key Reference is executed successfully");
+                return Ok(response);
+            }
+            catch(FormatException ex)
+            {
+                _log.Error("InValid Data formate"+ex);
+                throw new Exception("Given Data is Not Correct Formate"+ex);
+            }
         }
-
+        
     }
 }

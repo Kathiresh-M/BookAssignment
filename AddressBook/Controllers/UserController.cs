@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace AddressBook.Controllers
+
+namespace AddressBookAssignment.Controllers
 {
     [ApiController]
     [Authorize]
@@ -16,7 +17,7 @@ namespace AddressBook.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        private readonly ILogger<UserController> _logger;
+
         private readonly ILog _log;
 
         public UserController(IUserService userService, 
@@ -25,7 +26,6 @@ namespace AddressBook.Controllers
             _userService = userService;
             _mapper = mapper;
             _log = LogManager.GetLogger(typeof(UserController));
-            _logger = logger;
         }
 
         //Authentication and user creation controller
@@ -40,22 +40,25 @@ namespace AddressBook.Controllers
         [Route("api/user/auth")]
         public IActionResult AuthUser([FromBody] UserDto user)
         {
+            _log.Info("Get Authorization");
             if (!ModelState.IsValid)
             {
                 _log.Error("Invalid login details used.");
                 return BadRequest("Enter valid user data");
             }
 
-            var response = _userService.AuthUser(user);
-
             try
             {
+                var response = _userService.AuthUser(user);
                 _log.Info(user.UserName + " user logged in.");
+
                 var token = new Token(response.AccessToken, response.TokenType);
+
                 return Ok(token);
             }
             catch (Exception ex)
             {
+                _log.Error("Unauthorized user");
                 return Unauthorized("User not authenticated"+ex);
             }
         }

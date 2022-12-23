@@ -36,30 +36,32 @@ namespace AddressBookAssignment.Controllers
         [Route("api/account")]
         public IActionResult CreateAddressBook([FromBody] AddressBookCreateDto addressBookData)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("The addressBookData field is required");
-            }
+            _log.Info("Create Address Book ");
 
-            Guid tokenUserId;
-            var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
+            Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
 
-           
+            _log.Info("Get UserId");
+            //Guid tokenUserId;
+            //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
+
+            try
+                {
+
+                _log.Info("Sent data to AddressBook data" + addressBookData + "" + tokenUserId);
                 var response = _addressBookService.CreateAddressBook(addressBookData, tokenUserId);
 
-            try { 
-
                 if (!response.IsSuccess && response.Message.Contains("already exists"))
-                {
-                    return Conflict(response.Message);
-                }
-                _log.Info("Address Book was started to create");
-                return Ok($"Address book created with ID: {response.AddressBook.Id}");
-                _log.Info("Address Book was created" + response.AddressBook.Id);
+                    {
+                        _log.Error("Data Conflict");
+                        return Conflict(response.Message);
+                    }
+                
+                    _log.Info("Address Book was created" + response.AddressBook.Id);
+                    return Ok($"Address book created with ID: {response.AddressBook.Id}");
                 }
                 catch (Exception ex)
                 {
-                _log.Debug("Address was not found");
+                    _log.Debug("Address was not found");
                     return NotFound("Not found exception please check your code" + ex);
                 }
         }
@@ -73,25 +75,38 @@ namespace AddressBookAssignment.Controllers
         [Route("api/account/{addressBookId}")]
         public ActionResult GetAnAddressBook(Guid addressBookId)
         {
-            Guid tokenUserId = Guid.Parse("f457ae93-3b54-4fc3-8b57-12fe966f1e94");
+            _log.Info("Get An AddressBook"+addressBookId);
+
+            Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
+
             //Guid tokenUserId;
             //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
 
                 if (addressBookId == null || addressBookId == Guid.Empty)
                 {
                     _log.Error("Trying to access address book with not a valid address book id by user: " + tokenUserId);
-                    return BadRequest("Not a valid address book ID.");
+                    return NotFound("Not a valid address book ID.");
                 }
+
                 try
                 {
+                    _log.Info("Sent data to get AddressBook method");
                     var response = _addressBookService.GetAddressBook(addressBookId, tokenUserId);
 
+                if (!response.IsSuccess)
+                {
+                    _log.Info("Get An AddressBook : Not Found");
+                    return NotFound("Not found data");
+                }
+
+                    _log.Info("Get an AddressBook Successfully "+response.addressBook);
                     return Ok(response.addressBook);
                 }
+
                 catch (Exception ex)
                 {
                     _log.Debug("Address was not found");
-                    return NotFound("Not found exception please check your code" + ex);
+                    return BadRequest("Not found exception please check your code" + ex);
                 }
         }
 
@@ -104,10 +119,13 @@ namespace AddressBookAssignment.Controllers
         [Route("api/account")]
         public IActionResult GetAddressBooks([FromQuery] AddressBookResource resourceParameter)
         {
+            _log.Info("Start Address Book ");
 
-            Guid tokenUserId;
-            var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
+            Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
 
+            //Guid tokenUserId;
+            //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
+           
             var addressBooksToReturn = _addressBookService.GetAddressBooks(tokenUserId, resourceParameter);
 
             var previousPageLink = addressBooksToReturn.HasPrevious ? CreateUri(resourceParameter, UriType.PreviousPage) : null;
@@ -123,8 +141,9 @@ namespace AddressBookAssignment.Controllers
                 nextPageLink = nextPageLink
             };
 
-            Response.Headers.Add("Pagination", JsonSerializer.Serialize(metaData));
+            //Response.Headers.Add("Pagination", JsonSerializer.Serialize(metaData));
 
+            _log.Info("Get All Address Book");
             return Ok(addressBooksToReturn);
 
         }
@@ -134,30 +153,33 @@ namespace AddressBookAssignment.Controllers
         /// </summary>
         /// <param name="addressBookId">Id of the address book in Database</param>
         /// <param name="addressBook">address book data to be updated</param>
-        /// <returns>Id of the address book created</returns>
+        /// <returns>Return Updated Successful Message</returns>
         [HttpPut]
-        [Route("api/account/{Id}")]
+        [Route("api/account/{addressBookId}")]
         public IActionResult UpdateAddressBook(Guid addressBookId, [FromBody] AddressBookUpdateDto addressBookData)
         {
+            _log.Info("Start to Update AddressBook");
+
             if (!ModelState.IsValid)
             {
                 _log.Error("Invalid addressbook details used.");
                 return BadRequest("Enter valid addressbook data");
             }
-
-            Guid tokenUserId;
-            var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
+            Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
+            //Guid tokenUserId;
+            //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
 
                 var response = _addressBookService.UpdateAddressBook(addressBookData, addressBookId, tokenUserId);
 
                 if (!response.IsSuccess && response.Message.Contains("Additional") || response.Message.Contains("duplication") || response.Message.Contains("not valid"))
                 {
+                    _log.Error("Given Data is Conflict");
                     return Conflict(response.Message);
                 }
 
             if (!response.IsSuccess && response.Message.Contains("not found"))
             {
-                _log.Debug("Address was not found");
+                _log.Error("Address was not found");
                 return NotFound(response.Message);
             }
             _log.Info("Address was updated successfully");
@@ -172,52 +194,64 @@ namespace AddressBookAssignment.Controllers
         [Route("api/account/count")]
         public IActionResult GetAddressBookCount()
         {
-            Guid tokenUserId;
-            var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
+            _log.Info("Get Address Book Count start");
 
-            var response = _addressBookService.GetCount(tokenUserId);
-            if (!response.IsSuccess && response.Message.Contains("User"))
+            Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
+
+            //Invalid data
+            //Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab664d");
+
+            //Guid tokenUserId;
+            //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
+            try
             {
-                _log.Error($"User with Id:{tokenUserId}");
-                return NotFound("user not found");
+                var response = _addressBookService.GetCount(tokenUserId);
+
+                _log.Info("Get Address Book Count");
+                return Ok(response.Count);
             }
-            return Ok(response.Count);
+            catch(Exception ex)
+            {
+                _log.Error("User Not found"+ex);
+                return NotFound("user not found"+ex);
+            }
         }
 
         /// <summary>
         /// Method to delete an address book
         /// </summary>
         /// <param name="addressBookId">Id of the address book</param>
-        /// <returns></returns>
+        /// <returns>Return Delete Successful Message</returns>
         [HttpDelete]
-        [Route("api/account/{Id}")]
+        [Route("api/account/{AddressBookId}")]
         public IActionResult DeleteAddressBook(Guid addressBookId)
         {
-            Guid tokenUserId = Guid.Parse("f457ae93-3b54-4fc3-8b57-12fe966f1e94");
+            Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
+
             //Guid tokenUserId;
             //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
-
-            var addressBookResponseData = _addressBookService.GetAddressBook(addressBookId, tokenUserId);
-
-            if (!addressBookResponseData.IsSuccess || addressBookResponseData.Message.Contains("not"))
+            try
             {
-                _log.Info($"Address book with Id: {addressBookId}, does not exists");
-                return NotFound("Address book not found.");
-            }
+                var addressBookResponseData = _addressBookService.GetAddressBook(addressBookId, tokenUserId);
 
-            if (!addressBookResponseData.IsSuccess || addressBookResponseData.Message.Contains("User"))
+                if (!addressBookResponseData.IsSuccess || addressBookResponseData.Message.Contains("not") || addressBookResponseData.Message.Contains("User"))
+                {
+                    _log.Info($"Address book with Id: {addressBookId}, does not exists");
+                    return NotFound("Address book not found.");
+                }
+
+                var deleteResponse = _addressBookService.DeleteAddressBook(addressBookId, tokenUserId);
+
+                
+
+                _log.Info("Address was deleted successfully");
+                //return Ok(addressBookResponseData.addressBook);
+                return Ok("AddressBook " + addressBookId + " was deleted successfully");
+            }
+            catch(Exception ex)
             {
-                _log.Info($"Address book with Id: {addressBookId}, was tried to delete by user Id:{tokenUserId}.");
-                return NotFound("Address book not found.");
+                return NotFound("Data is not Found");
             }
-
-            var deleteResponse = _addressBookService.DeleteAddressBook(addressBookId, tokenUserId);
-
-            if (!deleteResponse.IsSuccess)
-                return NotFound("Address Book not found");
-
-            return Ok(addressBookResponseData.addressBook);
-            _log.Info("Address was deleted successfully");
         }
 
         /// <summary>

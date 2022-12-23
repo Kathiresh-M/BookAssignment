@@ -21,7 +21,7 @@ namespace Services.Helper
 
         public void CreateAddressBook(AddressBookDto addressBookData)
         {
-            var addressBook = new AddressBook
+            var addressBook = new AddressBookDatabase
             {
                 Id = addressBookData.Id,
                 FirstName = addressBookData.FirstName,
@@ -38,15 +38,16 @@ namespace Services.Helper
             _context.Phones.AddRange(addressBookData.Phones);
         }
 
-        public AddressBook GetAddressBookByName(string firstName, string lastName)
+        public AddressBookDatabase GetAddressBookByName(string firstName, string lastName)
         {
             return _context.AddressBooks.SingleOrDefault(addressBook => addressBook.FirstName == firstName && addressBook.LastName == lastName);
         }
 
-        public AddressBook GetAddressBookById(Guid AddressBookId)
+        public AddressBookDatabase GetAddressBookById(Guid AddressBookId)
         {
             return _context.AddressBooks.SingleOrDefault(addressBook => addressBook.Id == AddressBookId);
         }
+
 
         public int GetAddressBookCount(Guid userId)
         {
@@ -55,17 +56,17 @@ namespace Services.Helper
                     select ab).ToList().Count();
         }
 
-        public void DeleteAddressBook(AddressBook addressBook)
+        public void DeleteAddressBook(AddressBookDatabase addressBook)
         {
             _context.AddressBooks.Remove(addressBook);
         }
 
-        public List<AddressBook> GetAddressBooks(Guid userId)
+        public List<AddressBookDatabase> GetAddressBooks(Guid userId)
         {
             return _context.AddressBooks.Where(addressBook => addressBook.UserId == userId).ToList();
         }
 
-        public void UpdateAddressBook(AddressBook addressBook, IEnumerable<Email> Emails, IEnumerable<Address> Addresses, IEnumerable<Phone> Phones)
+        public void UpdateAddressBook(AddressBookDatabase addressBook, IEnumerable<Email> Emails, IEnumerable<Address> Addresses, IEnumerable<Phone> Phones)
         {
 
             _context.AddressBooks.Update(addressBook);

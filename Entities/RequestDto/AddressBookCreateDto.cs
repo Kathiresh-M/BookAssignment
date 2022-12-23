@@ -11,8 +11,8 @@ namespace Entities.RequestDto
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public IEnumerable<EmailDto> Emails { get; set; }
-        public IEnumerable<AddressDto> Addresses { get; set; }
-        public IEnumerable<PhoneDto> Phones { get; set; }
+        public List<EmailDto> Emails { get; set; }
+        public List<AddressDto> Addresses { get; set; }
+        public List<PhoneDto> Phones { get; set; }
     }
 }

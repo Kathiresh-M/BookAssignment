@@ -1,6 +1,6 @@
 using System;
 
-namespace AddressBook
+namespace AddressBooks
 {
     public class Program
     {
@@ -12,8 +12,13 @@ namespace AddressBook
             Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder.UseStartup<Startup>();
+            })
+            .ConfigureLogging(builder =>
+            {
+                builder.AddLog4Net("log4net.config");
+                builder.SetMinimumLevel(LogLevel.Trace);
             });
-        
+
     }
 }
 

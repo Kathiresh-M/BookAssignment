@@ -18,7 +18,7 @@ namespace Repository
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<AddressBook> AddressBooks { get; set; }
+        public DbSet<AddressBookDatabase> AddressBooks { get; set; }
 
         public DbSet<Email> Emails { get; set; }
 

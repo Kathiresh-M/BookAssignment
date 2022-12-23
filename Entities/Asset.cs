@@ -48,7 +48,7 @@ namespace Entities
         [ForeignKey("AddressBookId")]
         [Column(name: "address_book_id")]
         public Guid AddressBookId { get; set; }
-        public AddressBook AddressBook { get; set; }
+        public AddressBookDatabase AddressBook { get; set; }
 
         [Required]
         [ForeignKey("UserId")]

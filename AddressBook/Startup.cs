@@ -9,7 +9,7 @@ using Services;
 using Services.Helper;
 using System.Text;
 
-namespace AddressBook
+namespace AddressBooks
 {
     public class Startup
     {
@@ -29,6 +29,7 @@ namespace AddressBook
                 options.UseNpgsql(Configuration.GetConnectionString("DatabaseConnection"));
             });
 
+            //services.AddDbContext<InmemoryDatabaseContext>(context => { context.UseInMemoryDatabase("DatabaseConnection"); } );
             //Automapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -101,6 +102,12 @@ namespace AddressBook
 
             app.UseRouting();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "APIs");
+            });
+
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -110,8 +117,6 @@ namespace AddressBook
                 endpoints.MapControllers();
             });
             
-            app.UseSwagger();
-            app.UseSwaggerUI();
         }
     }
 }

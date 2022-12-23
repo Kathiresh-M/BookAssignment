@@ -10,5 +10,6 @@ namespace Entities.Dto
     {
         public Guid Id { get; set; }
         public string Key { get; set; }
+
     }
 }

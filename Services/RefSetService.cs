@@ -6,6 +6,7 @@ using Entities.Dto;
 using Repository;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -101,7 +102,7 @@ namespace Services
         public MetadataDto Metadata(string key)
         {
             var metadata = new MetadataDto();
-            metadata.Id = _bookRepository.RefSets.Where(a => a.Set == key).Select(a => a.Id).SingleOrDefault();
+            metadata.Id = _bookRepository.RefTerms.Where(a => a.Key == key).Select(a => a.Id).SingleOrDefault();
             metadata.Key = key;
             return metadata;
         }

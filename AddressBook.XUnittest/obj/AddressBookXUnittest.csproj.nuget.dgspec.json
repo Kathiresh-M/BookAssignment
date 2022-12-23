@@ -1,47 +1,47 @@
 {
   "format": 1,
   "restore": {
-    "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\AddressBook.XUnittest\\AddressBookXUnittest.csproj": {}
+    "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\AddressBook.XUnittest\\AddressBookXUnittest.csproj": {}
   },
   "projects": {
-    "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\AddressBook.XUnittest\\AddressBookXUnittest.csproj": {
+    "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\AddressBook.XUnittest\\AddressBookXUnittest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\AddressBook.XUnittest\\AddressBookXUnittest.csproj",
+        "projectUniqueName": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\AddressBook.XUnittest\\AddressBookXUnittest.csproj",
         "projectName": "AddressBookXUnittest",
-        "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\AddressBook.XUnittest\\AddressBookXUnittest.csproj",
-        "packagesPath": "C:\\Users\\ELCOT\\.nuget\\packages\\",
-        "outputPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\AddressBook.XUnittest\\obj\\",
+        "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\AddressBook.XUnittest\\AddressBookXUnittest.csproj",
+        "packagesPath": "C:\\Users\\Kathiresh M\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\AddressBook.XUnittest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ELCOT\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Kathiresh M\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\AddressBook\\AddressBookAssignment.csproj": {
-                "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\AddressBook\\AddressBookAssignment.csproj"
+              "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\AddressBook\\AddressBookAssignment.csproj": {
+                "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\AddressBook\\AddressBookAssignment.csproj"
               },
-              "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Contract\\Contract.csproj": {
-                "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Contract\\Contract.csproj"
+              "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Contract\\Contract.csproj": {
+                "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Contract\\Contract.csproj"
               },
-              "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Entities\\Entities.csproj": {
-                "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Entities\\Entities.csproj"
+              "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Entities\\Entities.csproj"
               },
-              "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Repository\\Repository.csproj": {
-                "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Repository\\Repository.csproj"
+              "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Repository\\Repository.csproj": {
+                "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Repository\\Repository.csproj"
               },
-              "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Services\\Services.csproj": {
-                "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Services\\Services.csproj"
+              "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Services\\Services.csproj": {
+                "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Services\\Services.csproj"
               }
             }
           }
@@ -53,12 +53,16 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "dependencies": {
             "AutoFixture": {
               "target": "Package",
               "version": "[4.17.0, )"
+            },
+            "FakeItEasy": {
+              "target": "Package",
+              "version": "[7.3.1, )"
             },
             "FluentAssertions": {
               "target": "Package",
@@ -105,42 +109,42 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\AddressBook\\AddressBookAssignment.csproj": {
+    "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\AddressBook\\AddressBookAssignment.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\AddressBook\\AddressBookAssignment.csproj",
+        "projectUniqueName": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\AddressBook\\AddressBookAssignment.csproj",
         "projectName": "AddressBookAssignment",
-        "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\AddressBook\\AddressBookAssignment.csproj",
-        "packagesPath": "C:\\Users\\ELCOT\\.nuget\\packages\\",
-        "outputPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\AddressBook\\obj\\",
+        "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\AddressBook\\AddressBookAssignment.csproj",
+        "packagesPath": "C:\\Users\\Kathiresh M\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\AddressBook\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ELCOT\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Kathiresh M\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Contract\\Contract.csproj": {
-                "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Contract\\Contract.csproj"
+              "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Contract\\Contract.csproj": {
+                "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Contract\\Contract.csproj"
               },
-              "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Repository\\Repository.csproj": {
-                "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Repository\\Repository.csproj"
+              "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Repository\\Repository.csproj": {
+                "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Repository\\Repository.csproj"
               },
-              "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Services\\Services.csproj": {
-                "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Services\\Services.csproj"
+              "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Services\\Services.csproj": {
+                "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Services\\Services.csproj"
               }
             }
           }
@@ -152,8 +156,8 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "dependencies": {
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
@@ -161,29 +165,41 @@
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[7.0.1, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.1, )"
             },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
             "Microsoft.EntityFrameworkCore.Relational": {
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[7.0.1, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[7.0.1, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[7.0.0, )"
             },
             "Microsoft.Extensions.Logging.Log4Net.AspNetCore": {
               "target": "Package",
               "version": "[6.1.0, )"
             },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.18.3, )"
+            },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
-              "version": "[6.0.7, )"
+              "version": "[7.0.0, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL.Design": {
               "target": "Package",
@@ -195,7 +211,7 @@
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[6.24.0, )"
+              "version": "[6.25.1, )"
             },
             "log4net": {
               "target": "Package",
@@ -221,39 +237,39 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Contract\\Contract.csproj": {
+    "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Contract\\Contract.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Contract\\Contract.csproj",
+        "projectUniqueName": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Contract\\Contract.csproj",
         "projectName": "Contract",
-        "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Contract\\Contract.csproj",
-        "packagesPath": "C:\\Users\\ELCOT\\.nuget\\packages\\",
-        "outputPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Contract\\obj\\",
+        "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Contract\\Contract.csproj",
+        "packagesPath": "C:\\Users\\Kathiresh M\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Contract\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ELCOT\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Kathiresh M\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Entities\\Entities.csproj": {
-                "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Entities\\Entities.csproj"
+              "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Entities\\Entities.csproj"
               },
-              "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Repository\\Repository.csproj": {
-                "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Repository\\Repository.csproj"
+              "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Repository\\Repository.csproj": {
+                "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Repository\\Repository.csproj"
               }
             }
           }
@@ -265,231 +281,30 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "dependencies": {
             "Microsoft.AspNetCore.Http.Features": {
               "target": "Package",
               "version": "[5.0.17, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Entities\\Entities.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Entities\\Entities.csproj",
-        "projectName": "Entities",
-        "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Entities\\Entities.csproj",
-        "packagesPath": "C:\\Users\\ELCOT\\.nuget\\packages\\",
-        "outputPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Entities\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\ELCOT\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net6.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
-          "dependencies": {
-            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+            },
+            "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",
-              "version": "[12.0.0, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Repository\\Repository.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Repository\\Repository.csproj",
-        "projectName": "Repository",
-        "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Repository\\Repository.csproj",
-        "packagesPath": "C:\\Users\\ELCOT\\.nuget\\packages\\",
-        "outputPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Repository\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\ELCOT\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net6.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
-            "projectReferences": {
-              "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Entities\\Entities.csproj": {
-                "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Entities\\Entities.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
-          "dependencies": {
+              "version": "[2.2.5, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[7.0.1, )"
             },
             "Microsoft.EntityFrameworkCore.Relational": {
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[7.0.1, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.10, )"
-            },
-            "Npgsql.EntityFrameworkCore.PostgreSQL": {
-              "target": "Package",
-              "version": "[6.0.7, )"
-            },
-            "Npgsql.EntityFrameworkCore.PostgreSQL.Design": {
-              "target": "Package",
-              "version": "[1.1.0, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Services\\Services.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Services\\Services.csproj",
-        "projectName": "Services",
-        "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Services\\Services.csproj",
-        "packagesPath": "C:\\Users\\ELCOT\\.nuget\\packages\\",
-        "outputPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Services\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\ELCOT\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net6.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
-            "projectReferences": {
-              "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Contract\\Contract.csproj": {
-                "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Contract\\Contract.csproj"
-              },
-              "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Entities\\Entities.csproj": {
-                "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Entities\\Entities.csproj"
-              },
-              "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Repository\\Repository.csproj": {
-                "projectPath": "D:\\VSasp.netcorecode\\AddressBookAssignment\\AddressBook\\Repository\\Repository.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
-          "dependencies": {
-            "Microsoft.AspNetCore.Authentication.JwtBearer": {
-              "target": "Package",
-              "version": "[6.0.10, )"
-            },
-            "System.IdentityModel.Tokens.Jwt": {
-              "target": "Package",
-              "version": "[6.24.0, )"
+              "version": "[7.0.1, )"
             },
             "log4net": {
               "target": "Package",
@@ -512,7 +327,234 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Entities\\Entities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Entities\\Entities.csproj",
+        "projectName": "Entities",
+        "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Entities\\Entities.csproj",
+        "packagesPath": "C:\\Users\\Kathiresh M\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Entities\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Kathiresh M\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Repository\\Repository.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Repository\\Repository.csproj",
+        "projectName": "Repository",
+        "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Repository\\Repository.csproj",
+        "packagesPath": "C:\\Users\\Kathiresh M\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Repository\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Kathiresh M\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Entities\\Entities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL.Design": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Services\\Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Services\\Services.csproj",
+        "projectName": "Services",
+        "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Services\\Services.csproj",
+        "packagesPath": "C:\\Users\\Kathiresh M\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Kathiresh M\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Contract\\Contract.csproj": {
+                "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Contract\\Contract.csproj"
+              },
+              "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Entities\\Entities.csproj"
+              },
+              "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Repository\\Repository.csproj": {
+                "projectPath": "C:\\Users\\Kathiresh M\\source\\repos\\BookAssignment\\Repository\\Repository.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.25.1, )"
+            },
+            "log4net": {
+              "target": "Package",
+              "version": "[2.0.15, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
