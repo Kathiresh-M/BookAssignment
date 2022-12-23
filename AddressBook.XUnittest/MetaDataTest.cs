@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using AddressBookAssignment.Controllers;
 using System.Net.Sockets;
 using AddressBookAssignment;
+using AddressBookAssignment.Memoryconnectionfactory;
 
 namespace AddressBookXUnittest
 {

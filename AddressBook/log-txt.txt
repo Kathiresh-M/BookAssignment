@@ -498,3 +498,8 @@ FROM "RefTerms" AS r
 WHERE r.id = @__refTermId_0
 LIMIT 2
 2022-12-23 09:57:35,903 [18] INFO  AddressBookAssignment.Controllers.AddressBookController [(null)] - Get All Address Book
+2022-12-23 10:52:06,535 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Now listening on: https://localhost:7258
+2022-12-23 10:52:06,609 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Now listening on: http://localhost:5258
+2022-12-23 10:52:06,619 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2022-12-23 10:52:06,622 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Development
+2022-12-23 10:52:06,625 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\Users\Kathiresh M\source\repos\BookAssignment\AddressBook
