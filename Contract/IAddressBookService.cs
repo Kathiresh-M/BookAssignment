@@ -12,7 +12,9 @@ namespace Contract
         AddressBookAddResponse CreateAddressBook(AddressBookCreateDto addressBookData, Guid userId);
         AddressBookResponse GetAddressBook(Guid addressBookId, Guid tokenUserId);
         AddressBookAddResponse UpdateAddressBook(AddressBookUpdateDto addressBookData, Guid addressBookId, Guid userId);
-        CountResponse GetCount(Guid userId);
+        //CountResponse GetCount(Guid userId);
+        CountResponse GetCount();
+
         MessageResponse DeleteAddressBook(Guid addressBookId, Guid userId);
         PagedList<AddressBookReturnDto> GetAddressBooks(Guid userId, AddressBookResource resourceParameter);
     }

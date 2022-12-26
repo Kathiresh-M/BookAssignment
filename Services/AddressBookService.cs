@@ -258,6 +258,7 @@ namespace Services
             _log.Info("Delete AddressBook using AddressBookId and Use Id in DeleteAddressBook Method (Service Layer)");
             var addressBook = _addressBookRepo.GetAddressBookById(addressBookId);
 
+
             if (addressBook == null)
                 return new MessageResponse(false, "Address book not found");
 
@@ -274,12 +275,26 @@ namespace Services
 
 
         //Get Count
-        public CountResponse GetCount(Guid userId)
+        /*public CountResponse GetCount(Guid userId)
         {
             _log.Info("Get AddressBook Count");
             var count = _addressBookRepo.GetAddressBookCount(userId);
 
             if(count == 0)
+            {
+                return new CountResponse(false, null, new CountDto { Count = count });
+            }
+
+            return new CountResponse(true, null, new CountDto { Count = count });
+        }
+        */
+        
+        public CountResponse GetCount()
+        {
+            _log.Info("Get AddressBook Count");
+            var count = _addressBookRepo.GetAddressBookCount();
+
+            if (count == 0)
             {
                 return new CountResponse(false, null, new CountDto { Count = count });
             }

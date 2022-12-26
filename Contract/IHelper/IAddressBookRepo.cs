@@ -15,7 +15,9 @@ namespace Contract.IHelper
 
         AddressBookDatabase GetAddressBookById(Guid AddressBookId);
 
-        int GetAddressBookCount(Guid userId);
+        //int GetAddressBookCount(Guid userId);
+
+        int GetAddressBookCount();
 
         void DeleteAddressBook(AddressBookDatabase addressBook);
 

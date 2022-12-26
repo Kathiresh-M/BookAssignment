@@ -85,6 +85,12 @@ namespace Services
             return new RefSetTermResponse(true, null, refTerms);
         }
 
+        public Guid Metadat(string key)
+        {
+            Guid guid = Guid.Parse("db0b30a3-405a-4e99-a1ea-c5bab30e266c");
+            return guid;
+        }
+
         public RefSetResponse DeleteRefSetById(Guid setId)
         {
 

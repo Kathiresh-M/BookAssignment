@@ -43,6 +43,10 @@ namespace AddressBookAssignment.Controllers
             _log.Info("Get UserId");
             //Guid tokenUserId;
             //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
             try
                 {
@@ -205,7 +209,7 @@ namespace AddressBookAssignment.Controllers
             //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
             try
             {
-                var response = _addressBookService.GetCount(tokenUserId);
+                var response = _addressBookService.GetCount();
 
                 _log.Info("Get Address Book Count");
                 return Ok(response.Count);
@@ -241,8 +245,6 @@ namespace AddressBookAssignment.Controllers
                 }
 
                 var deleteResponse = _addressBookService.DeleteAddressBook(addressBookId, tokenUserId);
-
-                
 
                 _log.Info("Address was deleted successfully");
                 //return Ok(addressBookResponseData.addressBook);

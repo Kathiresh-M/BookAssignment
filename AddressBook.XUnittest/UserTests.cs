@@ -17,7 +17,6 @@ using Services;
 using Microsoft.Extensions.Configuration;
 using Services.Helper.Contractconnect;
 using Microsoft.AspNetCore.Mvc;
-using AddressBookAssignment.Memoryconnectionfactory;
 
 namespace AddressBookXUnittest
 {
@@ -32,9 +31,7 @@ namespace AddressBookXUnittest
             _logger = new Mock<ILogger<UserController>>();
             _mapper = new Mapper(new MapperConfiguration(map =>
             {
-                
                 map.CreateMap<User, UserReturnDto>();
-
             }));
         }
 
@@ -64,6 +61,10 @@ namespace AddressBookXUnittest
             return context;
         }
 
+        /// <summary>
+        /// Method to Test Get Valid Token API
+        /// </summary>
+        /// <returns></returns>
         [Fact]
         public void GetValidToken_ValidId_ReturnToken()
         {
@@ -71,8 +72,9 @@ namespace AddressBookXUnittest
 
             var usesrrepository = new UserRepo(DbContextConnection);
             var password = new Password();
+            var jwt = new JWTService(config);
 
-            var servicefile = new Userservice(usesrrepository, password);
+            var servicefile = new UserService(usesrrepository, password, jwt);
 
             var controllerfile = new UserController(servicefile, _mapper, _logger.Object);
 
@@ -82,20 +84,17 @@ namespace AddressBookXUnittest
                 Password = "Kathir@123"
             };
 
-            UserDto userDto = new UserDto()
-            {
-                UserName = "kathir",
-                Password = "Kathir@123"
-            };
-
-            var result = controllerfile.AuthenticationUserDetails(userdata);
+            var result = controllerfile.AuthUser(userdata);
 
             Assert.NotNull(result);
             Assert.IsNotType<UnauthorizedObjectResult>(result);
             Assert.IsType<OkObjectResult>(result);
         }
 
-
+        /// <summary>
+        /// Method to Test Get Valid Token API
+        /// </summary>
+        /// <returns></returns>
         [Fact]
         public void GetValidToken_InValid_ReturnUnauthorized()
         {
@@ -103,8 +102,9 @@ namespace AddressBookXUnittest
 
             var usesrrepository = new UserRepo(DbContextConnection);
             var password = new Password();
+            var jwt = new JWTService(config);
 
-            var servicefile = new Userservice(usesrrepository, password);
+            var servicefile = new UserService(usesrrepository, password, jwt);
 
             var controllerfile = new UserController(servicefile, _mapper, _logger.Object);
 
@@ -114,7 +114,7 @@ namespace AddressBookXUnittest
                 Password = "Kathir@123"
             };
 
-            var result = controllerfile.AuthenticationUserDetals(userDto);
+            var result = controllerfile.AuthUser(userDto);
 
             Assert.NotNull(result);
             Assert.IsType<UnauthorizedObjectResult>(result);

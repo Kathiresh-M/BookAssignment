@@ -43,17 +43,23 @@ namespace Services.Helper
             return _context.AddressBooks.SingleOrDefault(addressBook => addressBook.FirstName == firstName && addressBook.LastName == lastName);
         }
 
+
         public AddressBookDatabase GetAddressBookById(Guid AddressBookId)
         {
             return _context.AddressBooks.SingleOrDefault(addressBook => addressBook.Id == AddressBookId);
         }
 
 
-        public int GetAddressBookCount(Guid userId)
+        /*public int GetAddressBookCount(Guid userId)
         {
             return (from ab in _context.AddressBooks
                     where ab.UserId == userId
                     select ab).ToList().Count();
+        }*/
+
+        public int GetAddressBookCount()
+        {
+            return _context.Users.Count();
         }
 
         public void DeleteAddressBook(AddressBookDatabase addressBook)

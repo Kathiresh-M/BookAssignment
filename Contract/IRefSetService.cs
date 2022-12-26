@@ -17,5 +17,6 @@ namespace Contract
         RefSetTermResponse GetRefTermsByRefSetId(Guid setId);
         RefSetResponse DeleteRefSetById(Guid setId);
         MetadataDto Metadata(string key);
+        Guid Metadat(string key);
     }
 }
