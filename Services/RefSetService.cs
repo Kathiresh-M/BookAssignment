@@ -105,12 +105,35 @@ namespace Services
             return new RefSetResponse(true, null, refSet);
         }
 
-        public MetadataDto Metadata(string key)
+       public MetadataDto Metadata(string key)
         {
             var metadata = new MetadataDto();
-            metadata.Id = _bookRepository.RefTerms.Where(a => a.Key == key).Select(a => a.Id).SingleOrDefault();
-            metadata.Key = key;
+            //metadata.Id = _bookRepository.RefSets.Where(a => a.Set == key).Select(a => a.Id).SingleOrDefault();
+            Guid refsetid = _bookRepository.RefSets.Where(a => a.Set == key).Select(a => a.Id).SingleOrDefault();
+
+            var reftermid = _bookRepository.RefSetTerm.Where(a=> a.RefSetId == refsetid).Select(a => a.RefTermId).SingleOrDefault();
+
+            metadata.Id = _bookRepository.RefTerms.Where(_a => _a.Id == reftermid).Select(a => a.Id).SingleOrDefault();
+
+            string reftermkey = getreftermKey(metadata.Id);
+            metadata.Key = reftermkey;
+
+            string reftermdesc = getreftermdesc(metadata.Id);
+            metadata.Description = reftermdesc;
+
             return metadata;
+        }
+
+        public string getreftermKey(Guid id)
+        {
+            var getid = _bookRepository.RefTerms.Where(a => a.Id == id).Select(a => a.Key).SingleOrDefault();
+            return getid;
+        }
+
+        public string getreftermdesc(Guid id)
+        {
+            var getdesc = _bookRepository.RefTerms.Where(a => a.Id == id).Select(a => a.Description).SingleOrDefault();
+            return getdesc;
         }
     }
 }
