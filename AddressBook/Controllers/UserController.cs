@@ -12,7 +12,7 @@ using System.Security.Claims;
 namespace AddressBookAssignment.Controllers
 {
     [ApiController]
-    [Authorize]
+    
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -36,10 +36,11 @@ namespace AddressBookAssignment.Controllers
         /// <param name="user">user login credential data</param>
         /// <returns>JSON Web Token</returns>
         [HttpPost]
-        [AllowAnonymous]
         [Route("api/user/auth")]
         public IActionResult AuthUser([FromBody] UserDto user)
         {
+
+
             _log.Info("Get Authorization");
             if (!ModelState.IsValid)
             {
@@ -69,7 +70,6 @@ namespace AddressBookAssignment.Controllers
         /// <param name="user">user data to be created</param>
         /// <returns>user data with Id</returns>
         [HttpPost]
-        [AllowAnonymous]
         [Route("api/user/register")]
         public IActionResult CreateUser([FromBody] UserCreationDto user)
         {
@@ -98,6 +98,7 @@ namespace AddressBookAssignment.Controllers
         /// <param name="Id">user Id</param>
         /// <returns>user data with id</returns>
         [HttpGet]
+        [Authorize]
         [Route("api/user/{Id}")]
         public IActionResult GetUser(Guid Id)
         {
@@ -132,6 +133,7 @@ namespace AddressBookAssignment.Controllers
         /// <param name="userData">user data to be updated</param>
         /// <returns>user data with Id</returns>
         [HttpPut]
+        [Authorize]
         [Route("api/user/{Id}")]
         public IActionResult UpdateUser(Guid Id, [FromBody] UserUpdationDto userData)
         {
@@ -162,6 +164,7 @@ namespace AddressBookAssignment.Controllers
         /// <param name="Id">User Id</param>
         /// <returns>no content</returns>
         [HttpDelete]
+        [Authorize]
         [Route("{id}")]
         public IActionResult DeleteUser(Guid Id)
         {

@@ -9,7 +9,7 @@ namespace Entities.Dto
     public class EmailDto
     {
         public string EmailAddress { get; set; }
-        public Keyrefence Keyrefence { get; set; }
+        public Keyrefence type { get; set; }
     }
 
     public class EmailUpdationDto : EmailDto

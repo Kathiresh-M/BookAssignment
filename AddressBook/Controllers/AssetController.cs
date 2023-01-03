@@ -11,7 +11,6 @@ using System.Security.Claims;
 namespace AddressBookAssignment.Controllers
 {
     [ApiController]
-    [Authorize]
 
     public class AssetController : ControllerBase
     {
@@ -36,6 +35,7 @@ namespace AddressBookAssignment.Controllers
         /// <param name="file">asset file</param>
         /// <returns>Return Upload file details</returns>
         [HttpPost]
+        [Authorize]
         [Route("api/asset/{addressBookId}")]
         public IActionResult UploadAsset(Guid addressBookId,[FromForm] IFormFile file)
         {
@@ -85,6 +85,7 @@ namespace AddressBookAssignment.Controllers
         /// <param name="Id">Id of the Asset</param>
         /// <returns>Return asset file</returns>
         [HttpGet]
+        [Authorize]
         [Route("api/asset/{Id}")]
         public IActionResult DownloadAsset(Guid Id)
         {
@@ -109,9 +110,8 @@ namespace AddressBookAssignment.Controllers
 
             var result = File(bytes, response.Asset.FileType, response.Asset.FileName);
 
-             return Ok(result);
 
-            //return File(bytes, response.Asset.FileType, response.Asset.FileName);
+            return File(bytes, response.Asset.FileType, response.Asset.FileName);
         }
 
         /// <summary>
@@ -123,6 +123,40 @@ namespace AddressBookAssignment.Controllers
         {
             return ("https://localhost:7258/api/asset/"+ addressBookId);
         }
+
+
+
+
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/assert/{Id}")]
+        public IActionResult DownloadAssert(Guid Id)
+        {
+            Guid tokenUseId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
+            //Guid tokenUserId;
+            //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
+
+            if (Id == null || Id == Guid.Empty)
+            {
+                _log.Error("Trying to access asset data with not a valid user id by user: " + tokenUseId);
+                return BadRequest("Not a valid user ID.");
+            }
+
+            var response = _assetService.GetAsset(Id, tokenUseId);
+
+            if (!response.IsSuccess)
+            {
+                return NotFound(response.Message);
+            }
+
+            byte[] bytes = Convert.FromBase64String(response.Asset.Content);
+
+            var result = File(bytes, response.Asset.FileType, response.Asset.FileName);
+
+            return Ok(result);
+        }
+
     }
 
 }

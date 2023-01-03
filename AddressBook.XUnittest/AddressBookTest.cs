@@ -34,12 +34,35 @@ namespace AddressBookXUnittest
         //private readonly ILogger _logger;
         private readonly Mock<ILogger<AddressBookController>> _logger;
         private readonly IMapper _mapper;
+        private readonly IAddressBookRepo _addressbookrepository;
         private readonly AddressBookController _controller;
+        private readonly IRefSetRepo _refsetRepository;
+        private readonly IRefSetTermRepo _refsettermrepository;
+        private readonly IAssetRepo _assetrepository;
+        private readonly IAddressRepo _addressrepository;
+        private readonly IRefTermRepo _reftermrepository;
+        private readonly IEmailRepo _emailrepository;
+        private readonly IPhoneRepo _phonerepository;
+        private readonly IUserRepo _userrepository;
+        private readonly IAddressBookService addressBookService;
         public AddressBookTest()
         {
             _serviceMock= new Mock<IAddressBookService>();
             _logger= new Mock<ILogger<AddressBookController>>();
+            var DbContextConnection = GetDBContextupdate();
+            _addressbookrepository = new AddressBookRepository(DbContextConnection);
+            _refsetRepository= new RefSetRepository(DbContextConnection);
+            _refsettermrepository = new RefSetTermRepository(DbContextConnection);
+            _assetrepository = new AssetRepository(DbContextConnection);
+            _addressrepository = new AddressRepository(DbContextConnection);
+            _reftermrepository = new RefTermRepository(DbContextConnection);
+            _emailrepository= new EmailRepository(DbContextConnection);
+            _phonerepository= new PhoneRepository(DbContextConnection);
+            _userrepository= new UserRepository(DbContextConnection);
+            addressBookService = new AddressBookService(_addressbookrepository, _refsetRepository, _refsettermrepository, _assetrepository,
+                _addressrepository, _reftermrepository, _emailrepository, _phonerepository, _userrepository);
 
+            _controller = new AddressBookController(addressBookService, _mapper, _logger.Object);
 
             _mapper = new Mapper(new MapperConfiguration(map =>
             {
@@ -87,30 +110,28 @@ namespace AddressBookXUnittest
 
             AddressBookDatabase addressbookdata = new AddressBookDatabase
             {
-                Id = Guid.Parse("04b112f1-d649-4a07-8de5-3ac77918c0fe"),
+                Id = Guid.Parse("c137b1cd-c374-4da6-a098-fb06b0df03aa"),
                 FirstName = "Kathir",
                 LastName = "M",
                 UserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644")
             };
 
             context.AddressBooks.Add(addressbookdata);
-            context.SaveChanges();
 
             Email emaildata = new Email
             {
-                Id = Guid.Parse("4628e6a9-4a1e-42a9-b7b5-e734e1b679e4"),
+                Id = Guid.Parse("dc57a504-d9a8-42a2-ad4c-83303f11e21a"),
                 EmailAddress = "kathiresh@gmail.com",
                 EmailTypeId = Guid.Parse("4e11a79e-3d5b-4ef2-907e-0deafc19085d"),
-                AddressBookId = Guid.Parse("04b112f1-d649-4a07-8de5-3ac77918c0fe"),
+                AddressBookId = Guid.Parse("c137b1cd-c374-4da6-a098-fb06b0df03aa"),
                 UserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644")
             };
 
             context.Emails.Add(emaildata);
-            context.SaveChanges();
 
             Address addressdata = new Address
             {
-                Id = Guid.Parse("339222e5-72d3-4d35-9260-ab1bc92468de"),
+                Id = Guid.Parse("57c0d845-b430-4b68-a229-ec10397a6605"),
                 Line1 = "massstreet",
                 Line2 = "100 feet street",
                 City = "Tiruppur",
@@ -118,24 +139,22 @@ namespace AddressBookXUnittest
                 ZipCode = "641603",
                 AddressTypeId = Guid.Parse("1287279b-2613-47ca-9bd2-9ed3b51cae86"),
                 CountryTypeId = Guid.Parse("3aac0854-de67-4bee-8e95-b48e6bc76b17"),
-                AddressBookId = Guid.Parse("04b112f1-d649-4a07-8de5-3ac77918c0fe"),
+                AddressBookId = Guid.Parse("c137b1cd-c374-4da6-a098-fb06b0df03aa"),
                 UserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644")
             };
 
             context.Addresses.Add(addressdata);
-            context.SaveChanges();
 
             Phone phonedata = new Phone
             {
-                Id = Guid.Parse("a70fcbb6-4f76-4dd3-8158-18cceecc4fa0"),
+                Id = Guid.Parse("36d15017-5b28-4692-9e7a-a730bacda282"),
                 PhoneNumber = "9877743212",
                 PhoneTypeId = Guid.Parse("c059f6e4-8743-4209-a240-1f0961fa027d"),
-                AddressBookId = Guid.Parse("04b112f1-d649-4a07-8de5-3ac77918c0fe"),
+                AddressBookId = Guid.Parse("c137b1cd-c374-4da6-a098-fb06b0df03aa"),
                 UserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644")
             };
 
             context.Phones.Add(phonedata);
-            context.SaveChanges();
 
             Asset assetdata = new Asset
             {
@@ -148,14 +167,6 @@ namespace AddressBookXUnittest
             };
 
             context.Assets.Add(assetdata);
-            context.SaveChanges();
-
-            /*RefSet refsetdata = new RefSet
-            {
-                Id = Guid.Parse("7c3b9028-3afc-4862-a058-91085f5c6217"),
-                Set = "ADDRESS_TYPE",
-                Description = "address details"
-            };*/
 
             context.RefSets.AddRange(new RefSet
             {
@@ -183,7 +194,6 @@ namespace AddressBookXUnittest
             });
 
             //context.RefSets.AddRange(refsetdata);
-            context.SaveChanges();
 
             context.RefTerms.AddRange(new RefTerm
             {
@@ -227,14 +237,6 @@ namespace AddressBookXUnittest
                 Description = "work email"
             });
 
-            context.SaveChanges();
-
-            /*RefSetTerm refsettermdata = new RefSetTerm
-            {
-                Id = Guid.Parse("4e11a79e-3d5b-4ef2-907e-0deafc19085d"),
-                RefSetId = Guid.Parse("7c3b9028-3afc-4862-a058-91085f5c6217"),
-                RefTermId = Guid.Parse("6fba0b8f-a5b3-48f7-bece-ca4bd8d3cb90")
-            };*/
 
             context.RefSetTerm.AddRange(new RefSetTerm
             {
@@ -286,6 +288,7 @@ namespace AddressBookXUnittest
              });
 
             //context.RefSetTerm.Add(refsettermdata);
+
             context.SaveChanges();
 
             return context;
@@ -300,22 +303,22 @@ namespace AddressBookXUnittest
         {
             var DbContextConnection = GetDBContextupdate();
 
-            var addressbookrepository = new AddressBookRepo(DbContextConnection);
-            var refsetrepository = new RefSetRepo(DbContextConnection);
-            var refsettermrepository = new RefSetTermRepo(DbContextConnection);
-            var assetrepository = new AssetRepo(DbContextConnection);
-            var addressrepository = new AddressRepo(DbContextConnection);
-            var reftermrepository = new RefTermRepo(DbContextConnection);
-            var emailrepository = new EmailRepo(DbContextConnection);
-            var phonerepository = new PhoneRepo(DbContextConnection);
-            var userrepository = new UserRepo(DbContextConnection);
+            var addressbookrepository = new AddressBookRepository(DbContextConnection);
+            var refsetrepository = new RefSetRepository(DbContextConnection);
+            var refsettermrepository = new RefSetTermRepository(DbContextConnection);
+            var assetrepository = new AssetRepository(DbContextConnection);
+            var addressrepository = new AddressRepository(DbContextConnection);
+            var reftermrepository = new RefTermRepository(DbContextConnection);
+            var emailrepository = new EmailRepository(DbContextConnection);
+            var phonerepository = new PhoneRepository(DbContextConnection);
+            var userrepository = new UserRepository(DbContextConnection);
 
             var servicefile = new AddressBookService(addressbookrepository, refsetrepository, refsettermrepository, assetrepository,
                 addressrepository, reftermrepository, emailrepository, phonerepository, userrepository);
 
             var controllerfile = new AddressBookController(servicefile, _mapper, _logger.Object);
 
-            var result = controllerfile.GetAddressBookCount();
+            IActionResult result = controllerfile.GetAddressBookCount();
 
             var finalresult = Assert.IsType<OkObjectResult>(result);
             CountDto countdata = finalresult.Value as CountDto;
@@ -331,31 +334,13 @@ namespace AddressBookXUnittest
         [Fact]
         public void DeleteAddressBook_CheckAddressBookId_ReturnOkStatus()
         {
-            var DbContextConnection = GetDBContextupdate();
+            Guid ValidAddressBookId = Guid.Parse("c137b1cd-c374-4da6-a098-fb06b0df03aa");
 
-            var addressbookrepository = new AddressBookRepo(DbContextConnection);
-            var refsetrepository = new RefSetRepo(DbContextConnection);
-            var refsettermrepository = new RefSetTermRepo(DbContextConnection);
-            var assetrepository = new AssetRepo(DbContextConnection);
-            var addressrepository = new AddressRepo(DbContextConnection);
-            var reftermrepository = new RefTermRepo(DbContextConnection);
-            var emailrepository = new EmailRepo(DbContextConnection);
-            var phonerepository = new PhoneRepo(DbContextConnection);
-            var userrepository = new UserRepo(DbContextConnection);
-
-            var servicefile = new AddressBookService(addressbookrepository, refsetrepository, refsettermrepository, assetrepository,
-                addressrepository, reftermrepository, emailrepository, phonerepository, userrepository);
-
-            var controllerfile = new AddressBookController(servicefile, _mapper, _logger.Object);
-
-
-            Guid ValidAddressBookId = Guid.Parse("04b112f1-d649-4a07-8de5-3ac77918c0fe");
-
-            var result = controllerfile.DeleteAddressBook(ValidAddressBookId);
+            IActionResult result = _controller.DeleteAddressBook(ValidAddressBookId);
 
             var finalresult = Assert.IsType<OkObjectResult>(result);
 
-            Assert.Equal("AddressBook 04b112f1-d649-4a07-8de5-3ac77918c0fe was deleted successfully", finalresult.Value);
+            Assert.Equal("AddressBook c137b1cd-c374-4da6-a098-fb06b0df03aa was deleted successfully", finalresult.Value);
         }
 
         /// <summary>
@@ -365,27 +350,9 @@ namespace AddressBookXUnittest
         [Fact]
         public void DeleteAddressBook_CheckAddressBookId_ReturnNotFoundStatus()
         {
-            var DbContextConnection = GetDBContextupdate();
-
-            var addressbookrepository = new AddressBookRepo(DbContextConnection);
-            var refsetrepository = new RefSetRepo(DbContextConnection);
-            var refsettermrepository = new RefSetTermRepo(DbContextConnection);
-            var assetrepository = new AssetRepo(DbContextConnection);
-            var addressrepository = new AddressRepo(DbContextConnection);
-            var reftermrepository = new RefTermRepo(DbContextConnection);
-            var emailrepository = new EmailRepo(DbContextConnection);
-            var phonerepository = new PhoneRepo(DbContextConnection);
-            var userrepository = new UserRepo(DbContextConnection);
-
-            var servicefile = new AddressBookService(addressbookrepository, refsetrepository, refsettermrepository, assetrepository,
-                addressrepository, reftermrepository, emailrepository, phonerepository, userrepository);
-
-            var controllerfile = new AddressBookController(servicefile, _mapper, _logger.Object);
-
-
             Guid ValidAddressBookId = Guid.NewGuid();
 
-            var result = controllerfile.DeleteAddressBook(ValidAddressBookId);
+            IActionResult result = _controller.DeleteAddressBook(ValidAddressBookId);
 
             var finaldata = Assert.IsType<NotFoundObjectResult>(result);
 
@@ -407,26 +374,12 @@ namespace AddressBookXUnittest
         [Fact]
         public void GetAllAddressBook_Valid_ReturnOkStatus()
         {
-            var DbContextConnection = GetDBContextupdate();
+            IActionResult result = _controller.GetAddressBooks(getpagination);
 
-            var addressbookrepository = new AddressBookRepo(DbContextConnection);
-            var refsetrepository = new RefSetRepo(DbContextConnection);
-            var refsettermrepository = new RefSetTermRepo(DbContextConnection);
-            var assetrepository = new AssetRepo(DbContextConnection);
-            var addressrepository = new AddressRepo(DbContextConnection);
-            var reftermrepository = new RefTermRepo(DbContextConnection);    
-            var emailrepository = new EmailRepo(DbContextConnection);
-            var phonerepository = new PhoneRepo(DbContextConnection);
-            var userrepository = new UserRepo(DbContextConnection);
+            var resultvalue = Assert.IsType<OkObjectResult>(result);
+            PagedList<AddressBookReturnDto> listresult = resultvalue.Value as PagedList<AddressBookReturnDto>;
 
-            var servicefile = new AddressBookService(addressbookrepository, refsetrepository, refsettermrepository, assetrepository,
-                addressrepository, reftermrepository, emailrepository, phonerepository, userrepository);
-
-            var controllerfile = new AddressBookController(servicefile, _mapper, _logger.Object);
-
-            var result = controllerfile.GetAddressBooks(getpagination);
-
-            Assert.IsType<OkObjectResult>(result);
+            Assert.Equal(1, listresult.Count);
         }
 
         /// <summary>
@@ -436,26 +389,9 @@ namespace AddressBookXUnittest
         [Fact]
         public void GetAnAddressBook_Valid_ReturnOkStatus()
         {
-            var DbContextConnection = GetDBContextupdate();
-
-            var addressbookrepository = new AddressBookRepo(DbContextConnection);
-            var refsetrepository = new RefSetRepo(DbContextConnection);
-            var refsettermrepository = new RefSetTermRepo(DbContextConnection);
-            var assetrepository = new AssetRepo(DbContextConnection);
-            var addressrepository = new AddressRepo(DbContextConnection);
-            var reftermrepository = new RefTermRepo(DbContextConnection);
-            var emailrepository = new EmailRepo(DbContextConnection);
-            var phonerepository = new PhoneRepo(DbContextConnection);
-            var userrepository = new UserRepo(DbContextConnection);
-
-            var servicefile = new AddressBookService(addressbookrepository, refsetrepository, refsettermrepository, assetrepository,
-                addressrepository, reftermrepository, emailrepository, phonerepository, userrepository);
-
-            var controllerfile = new AddressBookController(servicefile, _mapper, _logger.Object);
-
-            Guid valid = Guid.Parse("04b112f1-d649-4a07-8de5-3ac77918c0fe");
+            Guid valid = Guid.Parse("c137b1cd-c374-4da6-a098-fb06b0df03aa");
                 
-            var result = controllerfile.GetAnAddressBook(valid);
+            var result = _controller.GetAnAddressBook(valid);
 
             var finalresult = Assert.IsType<OkObjectResult>(result);
             AddressBookReturnDto addresslist = finalresult.Value as AddressBookReturnDto;
@@ -470,26 +406,11 @@ namespace AddressBookXUnittest
         [Fact]
         public void GetAnAddressBook_InValid_ReturnNotFoundStatus()
         {
-            var DbContextConnection = GetDBContextupdate();
-
-            var addressbookrepository = new AddressBookRepo(DbContextConnection);
-            var refsetrepository = new RefSetRepo(DbContextConnection);
-            var refsettermrepository = new RefSetTermRepo(DbContextConnection);
-            var assetrepository = new AssetRepo(DbContextConnection);
-            var addressrepository = new AddressRepo(DbContextConnection);
-            var reftermrepository = new RefTermRepo(DbContextConnection);
-            var emailrepository = new EmailRepo(DbContextConnection);
-            var phonerepository = new PhoneRepo(DbContextConnection);
-            var userrepository = new UserRepo(DbContextConnection);
-
-            var servicefile = new AddressBookService(addressbookrepository, refsetrepository, refsettermrepository, assetrepository,
-                addressrepository, reftermrepository, emailrepository, phonerepository, userrepository);
-
-            var controllerfile = new AddressBookController(servicefile, _mapper, _logger.Object);
+            
 
             Guid valid = Guid.NewGuid();
 
-            var result = controllerfile.GetAnAddressBook(valid);
+            var result = _controller.GetAnAddressBook(valid);
 
             var finalresult = Assert.IsType<NotFoundObjectResult>(result);
             Assert.Equal("Not found data", finalresult.Value);
@@ -502,24 +423,6 @@ namespace AddressBookXUnittest
         [Fact]
         public void CreateAddressBook_Valid_ReturnOkStatus()
         {
-            var DbContextConnection = GetDBContextupdate();
-
-            var addressbookrepository = new AddressBookRepo(DbContextConnection);
-            var refsetrepository = new RefSetRepo(DbContextConnection);
-            var refsettermrepository = new RefSetTermRepo(DbContextConnection);
-            var assetrepository = new AssetRepo(DbContextConnection);
-            var addressrepository = new AddressRepo(DbContextConnection);
-            var reftermrepository = new RefTermRepo(DbContextConnection);
-            var emailrepository = new EmailRepo(DbContextConnection);
-            var phonerepository = new PhoneRepo(DbContextConnection);
-            var userrepository = new UserRepo(DbContextConnection);
-
-            var servicefile = new AddressBookService(addressbookrepository, refsetrepository, refsettermrepository, assetrepository,
-                addressrepository, reftermrepository, emailrepository, phonerepository, userrepository);
-
-            var controllerfile = new AddressBookController(servicefile, _mapper, _logger.Object);
-
-
             var addressbookcreatedtofile = new AddressBookCreateDto();
 
             Keyrefence keyvalueemail = new Keyrefence()
@@ -551,8 +454,7 @@ namespace AddressBookXUnittest
                     new EmailDto()
                     {
                         EmailAddress = "shivan@gmail.com",
-
-                        Keyrefence = keyvalueemail
+                        type = keyvalueemail
                     }
                 },
                 Addresses = new List<AddressDto>()
@@ -564,8 +466,8 @@ namespace AddressBookXUnittest
                        City = "cbe",
                        StateName = "TN",
                        ZipCode = "456777",
-                       Addresstype = addresstype,
-                       Countrytype = countrytype
+                       type = addresstype,
+                       country = countrytype
                    }
                 },
                 Phones = new List<PhoneDto>()
@@ -573,12 +475,12 @@ namespace AddressBookXUnittest
                     new PhoneDto()
                     {
                         PhoneNumber = "9557743212",
-                        Phonereference = phoneref
+                        type = phoneref
                     }
                 }
             };
 
-            var result = controllerfile.CreateAddressBook(createdata);
+            var result = _controller.CreateAddressBook(createdata);
 
             Assert.IsType<OkObjectResult>(result);
         }
@@ -590,24 +492,7 @@ namespace AddressBookXUnittest
         [Fact]
         public void CreateAddressBook_Valid_ReturnConflictStatus()
         {
-            var DbContextConnection = GetDBContextupdate();
-
-            var addressbookrepository = new AddressBookRepo(DbContextConnection);
-            var refsetrepository = new RefSetRepo(DbContextConnection);
-            var refsettermrepository = new RefSetTermRepo(DbContextConnection);
-            var assetrepository = new AssetRepo(DbContextConnection);
-            var addressrepository = new AddressRepo(DbContextConnection);
-            var reftermrepository = new RefTermRepo(DbContextConnection);
-            var emailrepository = new EmailRepo(DbContextConnection);
-            var phonerepository = new PhoneRepo(DbContextConnection);
-            var userrepository = new UserRepo(DbContextConnection);
-
-            var servicefile = new AddressBookService(addressbookrepository, refsetrepository, refsettermrepository, assetrepository,
-                addressrepository, reftermrepository, emailrepository, phonerepository, userrepository);
-
-            var controllerfile = new AddressBookController(servicefile, _mapper, _logger.Object);
-
-
+           
             var addressbookcreatedtofile = new AddressBookCreateDto();
 
             Keyrefence keyvalueemail = new Keyrefence()
@@ -640,7 +525,7 @@ namespace AddressBookXUnittest
                     {
                         EmailAddress = "shivan@gmail.com",
 
-                        Keyrefence = keyvalueemail
+                        type = keyvalueemail
                     }
                 },
                 Addresses = new List<AddressDto>()
@@ -651,8 +536,8 @@ namespace AddressBookXUnittest
                        Line2 = "70 feet road",
                        StateName = "TN",
                        ZipCode = "456777",
-                       Addresstype = addresstype,
-                       Countrytype = countrytype
+                       type = addresstype,
+                       country = countrytype
                    }
                 },
                 Phones = new List<PhoneDto>()
@@ -660,14 +545,80 @@ namespace AddressBookXUnittest
                     new PhoneDto()
                     {
                         PhoneNumber = "9557743212",
-                        Phonereference = phoneref
+                        type = phoneref
                     }
                 }
             };
 
-            var result = controllerfile.CreateAddressBook(createdata);
+            var result = _controller.CreateAddressBook(createdata);
 
             Assert.IsType<ConflictObjectResult>(result);
+
+        }
+
+        [Fact]
+        public void CreateAddressBook_Valid_ReturnBadRequestStatus()
+        {
+            var addressbookcreatedtofile = new AddressBookCreateDto();
+
+            Keyrefence keyvalueemail = new Keyrefence()
+            {
+                Key = "personal"
+            };
+
+            Addresstype addresstype = new Addresstype()
+            {
+                Key = "home"
+            };
+
+            Countrytype countrytype = new Countrytype()
+            {
+                Key = "India"
+            };
+
+            Phonereference phoneref = new Phonereference()
+            {
+                Key = "workphone"
+            };
+
+            AddressBookCreateDto createdata = new AddressBookCreateDto()
+            {
+                FirstName = "kathir",
+                LastName = null,
+                Emails = new List<EmailDto>()
+                {
+                    new EmailDto()
+                    {
+                        EmailAddress = "shivan@gmail.com",
+
+                        type = keyvalueemail
+                    }
+                },
+                Addresses = new List<AddressDto>()
+                {
+                   new AddressDto()
+                   {
+                       Line1 = "shivan street",
+                       Line2 = "70 feet road",
+                       StateName = "TN",
+                       ZipCode = "456777",
+                       type = addresstype,
+                       country = countrytype
+                   }
+                },
+                Phones = new List<PhoneDto>()
+                {
+                    new PhoneDto()
+                    {
+                        PhoneNumber = "9557743212",
+                        type = phoneref
+                    }
+                }
+            };
+
+            var result = _controller.CreateAddressBook(createdata);
+
+            Assert.IsType<BadRequestObjectResult>(result);
 
         }
 
@@ -678,23 +629,7 @@ namespace AddressBookXUnittest
         [Fact]
         public void UpdateAddressBook_Valid_ReturnOkStatus()
         {
-            var DbContextConnection = GetDBContextupdate();
-
-            var addressbookrepository = new AddressBookRepo(DbContextConnection);
-            var refsetrepository = new RefSetRepo(DbContextConnection);
-            var refsettermrepository = new RefSetTermRepo(DbContextConnection);
-            var assetrepository = new AssetRepo(DbContextConnection);
-            var addressrepository = new AddressRepo(DbContextConnection);
-            var reftermrepository = new RefTermRepo(DbContextConnection);
-            var emailrepository = new EmailRepo(DbContextConnection);
-            var phonerepository = new PhoneRepo(DbContextConnection);
-            var userrepository = new UserRepo(DbContextConnection);
-
-            var servicefile = new AddressBookService(addressbookrepository, refsetrepository, refsettermrepository, assetrepository,
-                addressrepository, reftermrepository, emailrepository, phonerepository, userrepository);
-
-            var controllerfile = new AddressBookController(servicefile, _mapper, _logger.Object);
-
+            
             Keyrefence keyvalueemail = new Keyrefence()
             {
                 Key = "personal"
@@ -723,32 +658,29 @@ namespace AddressBookXUnittest
                 {
                     new EmailUpdationDto()
                     {
-                        Id = Guid.Parse("4628e6a9-4a1e-42a9-b7b5-e734e1b679e4"),
                         EmailAddress = "kathir1202@gmail.com",
-                        Keyrefence = keyvalueemail
+                        type = keyvalueemail
                     }
                 },
                 Addresses = new List<AddressUpdationDto>()
                 {
                     new AddressUpdationDto()
                     {
-                        Id = Guid.Parse("339222e5-72d3-4d35-9260-ab1bc92468de"),
                         Line1 = "kathir street",
                         Line2 = "90 feet road",
                         City = "cbe",
                         StateName = "TN",
                         ZipCode = "456557",
-                        Addresstype = addresstype,
-                        Countrytype = countrytype
+                        type = addresstype,
+                        country = countrytype
                     }
                 },
                 Phones = new List<PhoneUpdationDto>()
                 {
                     new PhoneUpdationDto()
                     {
-                        Id = Guid.Parse("a70fcbb6-4f76-4dd3-8158-18cceecc4fa0"),
                         PhoneNumber = "9557711212",
-                        Phonereference = phoneref
+                        type = phoneref
                     }
                 },
                 Asset = new AssetIdDto()
@@ -757,9 +689,9 @@ namespace AddressBookXUnittest
                 }
             };
 
-            Guid ValidAddressBookId = Guid.Parse("04b112f1-d649-4a07-8de5-3ac77918c0fe");
+            Guid ValidAddressBookId = Guid.Parse("c137b1cd-c374-4da6-a098-fb06b0df03aa");
 
-            var result = controllerfile.UpdateAddressBook(ValidAddressBookId , updatadata);
+            var result = _controller.UpdateAddressBook(ValidAddressBookId , updatadata);
 
             Assert.NotNull(result);
             var finalresult = Assert.IsType<OkObjectResult>(result);

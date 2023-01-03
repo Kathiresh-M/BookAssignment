@@ -5,8 +5,10 @@ using Entities;
 using Entities.Dto;
 using Entities.RequestDto;
 using log4net;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -336,12 +338,12 @@ namespace Services
 
             for (int i = 0; i < emails.Count(); i++)
             {
-                var refTerm = emailTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == emails.ElementAt(i).Keyrefence.Key.ToLower());
+                var refTerm = emailTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == emails.ElementAt(i).type.Key.ToLower());
                 if (refTerm == null)
-                    return new EmailResponse(false, $"Key {emails.ElementAt(i).Keyrefence.Key} was not found.", null);
+                    return new EmailResponse(false, $"Key {emails.ElementAt(i).type.Key} was not found.", null);
                 var mapping = emailRefTermsWithMapping.SingleOrDefault(mapping => mapping.RefTermId == refTerm.Id);
                 if (mapping == null)
-                    return new EmailResponse(false, $"Key {emails.ElementAt(i).Keyrefence.Key} was not found.", null);
+                    return new EmailResponse(false, $"Key {emails.ElementAt(i).type.Key} was not found.", null);
 
                 emailsList.Add(new Email
                 {
@@ -387,12 +389,12 @@ namespace Services
 
             for (int i = 0; i < phones.Count(); i++)
             {
-                var refTerm = phoneTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == phones.ElementAt(i).Phonereference.Key.ToLower());
+                var refTerm = phoneTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == phones.ElementAt(i).type.Key.ToLower());
                 if (refTerm == null)
-                    return new PhoneResponse(false, $"Key {phones.ElementAt(i).Phonereference.Key} was not found.", null);
+                    return new PhoneResponse(false, $"Key {phones.ElementAt(i).type.Key} was not found.", null);
                 var mapping = phoneRefTermsWithMapping.SingleOrDefault(mapping => mapping.RefTermId == refTerm.Id);
                 if (mapping == null)
-                    return new PhoneResponse(false, $"Key {phones.ElementAt(i).Phonereference.Key} was not found.", null);
+                    return new PhoneResponse(false, $"Key {phones.ElementAt(i).type.Key} was not found.", null);
 
                 phonesList.Add(new Phone
                 {
@@ -421,19 +423,19 @@ namespace Services
             {
                 var address = addresses.ElementAt(i);
 
-                var addressRefTerm = addressTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == address.Addresstype.Key.ToLower());
+                var addressRefTerm = addressTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == address.type.Key.ToLower());
                 if (addressRefTerm == null)
-                    return new AddressResponse(false, $"Key {address.Addresstype.Key} was not found.", null);
+                    return new AddressResponse(false, $"Key {address.type.Key} was not found.", null);
                 var addressMapping = addressRefTermsWithMapping.SingleOrDefault(mapping => mapping.RefTermId == addressRefTerm.Id);
                 if (addressMapping == null)
-                    return new AddressResponse(false, $"Key {address.Addresstype.Key} was not found.", null);
+                    return new AddressResponse(false, $"Key {address.type.Key} was not found.", null);
 
-                var countryRefTerm = countryTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == address.Countrytype.Key.ToLower());
+                var countryRefTerm = countryTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == address.country.Key.ToLower());
                 if (countryRefTerm == null)
-                    return new AddressResponse(false, $"Key {address.Countrytype.Key} was not found.", null);
+                    return new AddressResponse(false, $"Key {address.country.Key} was not found.", null);
                 var countryMapping = countryRefTermsWithMapping.SingleOrDefault(mapping => mapping.RefTermId == countryRefTerm.Id);
                 if (countryMapping == null)
-                    return new AddressResponse(false, $"Key {address.Countrytype.Key} was not found.", null);
+                    return new AddressResponse(false, $"Key {address.country.Key} was not found.", null);
 
                 addressesList.Add(new Address
                 {
@@ -464,7 +466,7 @@ namespace Services
                 {
                     Id = email.Id,
                     EmailAddress = email.EmailAddress,
-                    Keyrefence = new Entities.Dto.Keyrefence() { Key = refTerm.Key }
+                    type = new Entities.Dto.Keyrefence() { Key = refTerm.Key }
                 });
             }
 
@@ -483,7 +485,7 @@ namespace Services
                 {
                     Id = phone.Id,
                     PhoneNumber = phone.PhoneNumber,
-                    Phonereference = new Entities.Dto.Phonereference() { Key = refTerm.Key }
+                    type = new Entities.Dto.Phonereference() { Key = refTerm.Key }
                 });
             }
 
@@ -508,8 +510,8 @@ namespace Services
                     City = address.City,
                     StateName = address.StateName,
                     ZipCode = address.ZipCode,
-                    Addresstype = new Entities.Dto.Addresstype() { Key = typeRefTerm.Key },
-                    Countrytype = new Entities.Dto.Countrytype() { Key = countryRefTerm.Key },
+                    type = new Entities.Dto.Addresstype() { Key = typeRefTerm.Key },
+                    country = new Entities.Dto.Countrytype() { Key = countryRefTerm.Key },
                 });
             }
 
@@ -570,16 +572,17 @@ namespace Services
 
             for (int i = 0; i < emails.Count(); i++)
             {
-                var refTerm = emailTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == emails.ElementAt(i).Keyrefence.Key.ToLower());
+                var refTerm = emailTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == emails.ElementAt(i).type.Key.ToLower());
                 if (refTerm == null)
-                    return new EmailResponse(false, $"Key {emails.ElementAt(i).Keyrefence.Key} was not found.", null);
+                    return new EmailResponse(false, $"Key {emails.ElementAt(i).type.Key} was not found.", null);
                 var mapping = emailRefTermsWithMapping.SingleOrDefault(mapping => mapping.RefTermId == refTerm.Id);
                 if (mapping == null)
-                    return new EmailResponse(false, $"Key {emails.ElementAt(i).Keyrefence.Key} was not found.", null);
+                    return new EmailResponse(false, $"Key {emails.ElementAt(i).type.Key} was not found.", null);
 
                 emailsList.Add(new Email
                 {
-                    Id = emails.ElementAt(i).Id,
+                    //Id = emails.ElementAt(i).Id,
+                    Id = Guid.Parse("dc57a504-d9a8-42a2-ad4c-83303f11e21a"),
                     EmailAddress = emails.ElementAt(i).EmailAddress,
                     EmailTypeId = mapping.Id
                 });
@@ -650,19 +653,20 @@ namespace Services
 
             for (int i = 0; i < phones.Count(); i++)
             {
-                var refTerm = phoneTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == phones.ElementAt(i).Phonereference.Key.ToLower());
+                var refTerm = phoneTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == phones.ElementAt(i).type.Key.ToLower());
                 if (refTerm == null)
-                    return new PhoneResponse(false, $"Key {phones.ElementAt(i).Phonereference.Key} was not found.", null);
+                    return new PhoneResponse(false, $"Key {phones.ElementAt(i).type.Key} was not found.", null);
                 var mapping = phoneRefTermsWithMapping.SingleOrDefault(mapping => mapping.RefTermId == refTerm.Id);
                 if (mapping == null)
-                    return new PhoneResponse(false, $"Key {phones.ElementAt(i).Phonereference.Key} was not found.", null);
+                    return new PhoneResponse(false, $"Key {phones.ElementAt(i).type.Key} was not found.", null);
 
                 phonesList.Add(new Phone
                 {
-                    Id = phones.ElementAt(i).Id,
+                    //Id = phones.ElementAt(i).Id,
+                    Id = Guid.Parse("36d15017-5b28-4692-9e7a-a730bacda282"),
                     PhoneNumber = phones.ElementAt(i).PhoneNumber,
                     PhoneTypeId = mapping.Id,
-                });
+                }) ;
             }
 
             foreach (var phone in phonesList)
@@ -703,23 +707,24 @@ namespace Services
             {
                 var address = addresses.ElementAt(i);
 
-                var addressRefTerm = addressTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == address.Addresstype.Key.ToLower());
+                var addressRefTerm = addressTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == address.type.Key.ToLower());
                 if (addressRefTerm == null)
-                    return new AddressResponse(false, $"Key {address.Addresstype.Key} was not found.", null);
+                    return new AddressResponse(false, $"Key {address.type.Key} was not found.", null);
                 var addressMapping = addressRefTermsWithMapping.SingleOrDefault(mapping => mapping.RefTermId == addressRefTerm.Id);
                 if (addressMapping == null)
-                    return new AddressResponse(false, $"Key {address.Addresstype.Key} was not found.", null);
+                    return new AddressResponse(false, $"Key {address.type.Key} was not found.", null);
 
-                var countryRefTerm = countryTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == address.Countrytype.Key.ToLower());
+                var countryRefTerm = countryTerms.SingleOrDefault(refTerm => refTerm.Key.ToLower() == address.country.Key.ToLower());
                 if (countryRefTerm == null)
-                    return new AddressResponse(false, $"Key {address.Countrytype.Key} was not found.", null);
+                    return new AddressResponse(false, $"Key {address.country.Key} was not found.", null);
                 var countryMapping = countryRefTermsWithMapping.SingleOrDefault(mapping => mapping.RefTermId == countryRefTerm.Id);
                 if (countryMapping == null)
-                    return new AddressResponse(false, $"Key {address.Countrytype.Key} was not found.", null);
+                    return new AddressResponse(false, $"Key {address.country.Key} was not found.", null);
 
                 addressesList.Add(new Address
                 {
-                    Id = address.Id,
+                    //Id = address.Id,
+                    Id = Guid.Parse("57c0d845-b430-4b68-a229-ec10397a6605"),
                     Line1 = address.Line1,
                     Line2 = address.Line2,
                     City = address.City,
@@ -744,6 +749,89 @@ namespace Services
             }
 
             return new AddressResponse(true, null, addressesInDB);
+        }
+
+        public bool Checkrequest(AddressBookCreateDto addressBookData)
+        {
+            
+            if(addressBookData.FirstName== null || addressBookData.LastName == null)
+            {
+                return false;
+            }
+
+            /*var emailcheck = checkemail(addressBookData.Emails);
+
+            if (!emailcheck)
+            {
+                return false;
+            }
+
+            var addresscheck = checkaddress(addressBookData.Addresses);
+
+            if (!addresscheck)
+            {
+                return false;
+            }
+
+            var phonecheck = checkphone(addressBookData.Phones); 
+            if (!phonecheck)
+            {
+                return false;
+            }*/
+
+            return true;
+        }
+
+        private bool checkemail(IEnumerable<EmailDto> emails)
+        {
+            var emailemail = emails.ElementAt(0).EmailAddress;
+            var emailpwd = emails.ElementAt(1).type;
+            if(emailemail == null || emailpwd == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool checkaddress(IEnumerable<AddressDto> addr)
+        {
+            var addline1 = addr.ElementAt(0).Line1;
+            var addline2 = addr.ElementAt(1).Line2;
+            var addcity = addr.ElementAt(2).City;
+            var addstate = addr.ElementAt(3).StateName;
+            var addzip = addr.ElementAt(4).ZipCode;
+            var addtype = addr.ElementAt(5).type;
+            var addcountry = addr.ElementAt(5).country;
+            
+            if(addline1== null || addline2 == null || addcity == null || addstate == null || addzip == null || addtype == null || addcountry == null)
+            {
+                return false;
+            }
+            
+            return true;
+        }
+
+        private bool checkphone(IEnumerable<PhoneDto> phne)
+        {
+            var phenum = phne.ElementAt(0).PhoneNumber;
+            var phetype = phne.ElementAt(1).type;
+
+            if(phenum == null || phetype == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public ErrorDto ModelStateInvaliLoginAPI(ModelStateDictionary ModelState)
+        {
+            return new ErrorDto
+            {
+                type = ModelState.Keys.Select(src => src).FirstOrDefault(),
+                description = ModelState.Values.Select(src => src.Errors[0].ErrorMessage).FirstOrDefault()
+            };
         }
     }
 }

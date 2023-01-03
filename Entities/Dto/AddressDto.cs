@@ -13,8 +13,8 @@ namespace Entities.Dto
         public string City { get; set; }
         public string StateName { get; set; }
         public string ZipCode { get; set; }
-        public Addresstype Addresstype { get; set; }
-        public Countrytype Countrytype { get; set; }
+        public Addresstype type { get; set; }
+        public Countrytype country { get; set; }
     }
 
     public class AddressUpdationDto : AddressDto

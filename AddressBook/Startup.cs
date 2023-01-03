@@ -34,15 +34,15 @@ namespace AddressBooks
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             //Injection
-            services.AddScoped<IUserRepo, UserRepo>();
-            services.AddScoped<IEmailRepo, EmailRepo>();
-            services.AddScoped<IPhoneRepo, PhoneRepo>();
-            services.AddScoped<IAddressRepo, AddressRepo>();
-            services.AddScoped<IAddressBookRepo, AddressBookRepo>();
-            services.AddScoped<IAssetRepo, AssetRepo>();
-            services.AddScoped<IRefSetRepo, RefSetRepo>();
-            services.AddScoped<IRefTermRepo, RefTermRepo>();
-            services.AddScoped<IRefSetTermRepo, RefSetTermRepo>();
+            services.AddScoped<IUserRepo, UserRepository>();
+            services.AddScoped<IEmailRepo, EmailRepository>();
+            services.AddScoped<IPhoneRepo, PhoneRepository>();
+            services.AddScoped<IAddressRepo, AddressRepository>();
+            services.AddScoped<IAddressBookRepo, AddressBookRepository>();
+            services.AddScoped<IAssetRepo, AssetRepository>();
+            services.AddScoped<IRefSetRepo, RefSetRepository>();
+            services.AddScoped<IRefTermRepo, RefTermRepository>();
+            services.AddScoped<IRefSetTermRepo, RefSetTermRepository>();
 
             services.AddSingleton<IPassword, Password>();
             services.AddSingleton<IJWTService, JWTService>();

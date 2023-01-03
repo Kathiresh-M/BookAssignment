@@ -1,17 +1,18 @@
 ﻿using AutoMapper;
 using Contract;
+using Entities.Dto;
 using Entities.RequestDto;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services;
 using System.Security.Claims;
 using System.Text.Json;
 
 namespace AddressBookAssignment.Controllers
 {
     [ApiController]
-    [Authorize]
     public class AddressBookController : ControllerBase
     {
         private readonly IAddressBookService _addressBookService;
@@ -33,6 +34,7 @@ namespace AddressBookAssignment.Controllers
         /// <param name="addressBookData">address book data to be created</param>
         /// <returns>Id of the address book created</returns>
         [HttpPost]
+        [Authorize]
         [Route("api/account")]
         public IActionResult CreateAddressBook([FromBody] AddressBookCreateDto addressBookData)
         {
@@ -41,11 +43,12 @@ namespace AddressBookAssignment.Controllers
             Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
 
             _log.Info("Get UserId");
-            //Guid tokenUserId;
-            //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
-            if(!ModelState.IsValid)
+
+            var checkbadrequest = _addressBookService.Checkrequest(addressBookData);
+
+            if(checkbadrequest == false)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Address Book Data is incorrect, AddressBookData occurs null value");
             }
 
             try
@@ -56,7 +59,7 @@ namespace AddressBookAssignment.Controllers
 
                 if (!response.IsSuccess && response.Message.Contains("already exists"))
                     {
-                        _log.Error("Data Conflict");
+                        _log.Debug("Data Conflict");
                         return Conflict(response.Message);
                     }
                 
@@ -65,7 +68,7 @@ namespace AddressBookAssignment.Controllers
                 }
                 catch (Exception ex)
                 {
-                    _log.Debug("Address was not found");
+                    _log.Error("Address was not found");
                     return NotFound("Not found exception please check your code" + ex);
                 }
         }
@@ -76,6 +79,7 @@ namespace AddressBookAssignment.Controllers
         /// <param name="addressBookId">Address Book Id</param>
         /// <returns>an address book</returns>
         [HttpGet]
+        [Authorize]
         [Route("api/account/{addressBookId}")]
         public ActionResult GetAnAddressBook(Guid addressBookId)
         {
@@ -83,12 +87,10 @@ namespace AddressBookAssignment.Controllers
 
             Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
 
-            //Guid tokenUserId;
-            //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
 
                 if (addressBookId == null || addressBookId == Guid.Empty)
                 {
-                    _log.Error("Trying to access address book with not a valid address book id by user: " + tokenUserId);
+                    _log.Debug("Trying to access address book with not a valid address book id by user: " + tokenUserId);
                     return NotFound("Not a valid address book ID.");
                 }
 
@@ -109,7 +111,7 @@ namespace AddressBookAssignment.Controllers
 
                 catch (Exception ex)
                 {
-                    _log.Debug("Address was not found");
+                    _log.Error("Address was not found");
                     return BadRequest("Not found exception please check your code" + ex);
                 }
         }
@@ -119,7 +121,9 @@ namespace AddressBookAssignment.Controllers
         /// </summary>
         /// <param name="resourceParameter">query paramters to get pagination and sorting data</param>
         /// <returns>list of address books</returns>
+        
         [HttpGet]
+        [Authorize]
         [Route("api/account")]
         public IActionResult GetAddressBooks([FromQuery] AddressBookResource resourceParameter)
         {
@@ -127,13 +131,8 @@ namespace AddressBookAssignment.Controllers
 
             Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
 
-            //Guid tokenUserId;
-            //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
            
             var addressBooksToReturn = _addressBookService.GetAddressBooks(tokenUserId, resourceParameter);
-
-            var previousPageLink = addressBooksToReturn.HasPrevious ? CreateUri(resourceParameter, UriType.PreviousPage) : null;
-            var nextPageLink = addressBooksToReturn.HasNext ? CreateUri(resourceParameter, UriType.NextPage) : null;
 
             var metaData = new
             {
@@ -141,11 +140,7 @@ namespace AddressBookAssignment.Controllers
                 pageSize = addressBooksToReturn.PageSize,
                 currentPage = addressBooksToReturn.CurrentPage,
                 totalPages = addressBooksToReturn.TotalPages,
-                previousPageLink = previousPageLink,
-                nextPageLink = nextPageLink
             };
-
-            //Response.Headers.Add("Pagination", JsonSerializer.Serialize(metaData));
 
             _log.Info("Get All Address Book");
             return Ok(addressBooksToReturn);
@@ -159,6 +154,7 @@ namespace AddressBookAssignment.Controllers
         /// <param name="addressBook">address book data to be updated</param>
         /// <returns>Return Updated Successful Message</returns>
         [HttpPut]
+        [Authorize]
         [Route("api/account/{addressBookId}")]
         public IActionResult UpdateAddressBook(Guid addressBookId, [FromBody] AddressBookUpdateDto addressBookData)
         {
@@ -166,24 +162,20 @@ namespace AddressBookAssignment.Controllers
 
             if (!ModelState.IsValid)
             {
-                _log.Error("Invalid addressbook details used.");
                 return BadRequest("Enter valid addressbook data");
             }
             Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
-            //Guid tokenUserId;
-            //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
 
                 var response = _addressBookService.UpdateAddressBook(addressBookData, addressBookId, tokenUserId);
 
                 if (!response.IsSuccess && response.Message.Contains("Additional") || response.Message.Contains("duplication") || response.Message.Contains("not valid"))
                 {
-                    _log.Error("Given Data is Conflict");
                     return Conflict(response.Message);
                 }
 
             if (!response.IsSuccess && response.Message.Contains("not found"))
             {
-                _log.Error("Address was not found");
+                _log.Debug("Address was not found");
                 return NotFound(response.Message);
             }
             _log.Info("Address was updated successfully");
@@ -194,7 +186,9 @@ namespace AddressBookAssignment.Controllers
         /// Method to get number of address books
         /// </summary>
         /// <returns>Count of the address books</returns>
+        
         [HttpGet]
+        [Authorize]
         [Route("api/account/count")]
         public IActionResult GetAddressBookCount()
         {
@@ -202,11 +196,6 @@ namespace AddressBookAssignment.Controllers
 
             Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
 
-            //Invalid data
-            //Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab664d");
-
-            //Guid tokenUserId;
-            //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
             try
             {
                 var response = _addressBookService.GetCount();
@@ -227,13 +216,12 @@ namespace AddressBookAssignment.Controllers
         /// <param name="addressBookId">Id of the address book</param>
         /// <returns>Return Delete Successful Message</returns>
         [HttpDelete]
+        [Authorize]
         [Route("api/account/{AddressBookId}")]
         public IActionResult DeleteAddressBook(Guid addressBookId)
         {
             Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
 
-            //Guid tokenUserId;
-            //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
             try
             {
                 var addressBookResponseData = _addressBookService.GetAddressBook(addressBookId, tokenUserId);
@@ -247,49 +235,11 @@ namespace AddressBookAssignment.Controllers
                 var deleteResponse = _addressBookService.DeleteAddressBook(addressBookId, tokenUserId);
 
                 _log.Info("Address was deleted successfully");
-                //return Ok(addressBookResponseData.addressBook);
                 return Ok("AddressBook " + addressBookId + " was deleted successfully");
             }
             catch(Exception ex)
             {
                 return NotFound("Data is not Found");
-            }
-        }
-
-        /// <summary>
-        /// Method to create link
-        /// </summary>
-        /// <param name="resourceParameter">Pagiantiona and sorting data</param>
-        /// <param name="uriType">type of the uri</param>
-        /// <returns>uri or null</returns>
-        private string CreateUri(AddressBookResource resourceParameter, UriType uriType)
-        {
-            switch (uriType)
-            {
-                case UriType.PreviousPage:
-                    return Url.Link("GetAddressBooks", new
-                    {
-                        pageNumber = resourceParameter.PageNumber - 1,
-                        pageSize = resourceParameter.PageSize,
-                        sortBy = resourceParameter.SortBy,
-                        sortOrder = resourceParameter.SortOrder,
-                    });
-                case UriType.NextPage:
-                    return Url.Link("GetAddressBooks", new
-                    {
-                        pageNumber = resourceParameter.PageNumber + 1,
-                        pageSize = resourceParameter.PageSize,
-                        sortBy = resourceParameter.SortBy,
-                        sortOrder = resourceParameter.SortOrder,
-                    });
-                default:
-                    return Url.Link("GetAddressBooks", new
-                    {
-                        pageNumber = resourceParameter.PageNumber,
-                        pageSize = resourceParameter.PageSize,
-                        sortBy = resourceParameter.SortBy,
-                        sortOrder = resourceParameter.SortOrder,
-                    });
             }
         }
     }

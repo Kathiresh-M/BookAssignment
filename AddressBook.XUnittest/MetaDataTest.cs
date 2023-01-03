@@ -254,9 +254,9 @@ namespace AddressBookXUnittest
         {
             var DbContextConnection = GetDBContext();
 
-            var refsetrepository = new RefSetRepo(DbContextConnection);
-            var refsettermrepository = new RefSetTermRepo(DbContextConnection);
-            var reftermrepositiry = new RefTermRepo(DbContextConnection);
+            var refsetrepository = new RefSetRepository(DbContextConnection);
+            var refsettermrepository = new RefSetTermRepository(DbContextConnection);
+            var reftermrepositiry = new RefTermRepository(DbContextConnection);
             var option = new DbContextOptionsBuilder<BookRepository>().UseInMemoryDatabase(databaseName: "AddressBookDB").Options;
             var bookrepo = new BookRepository(option);
 
@@ -286,9 +286,9 @@ namespace AddressBookXUnittest
         {
             var DbContextConnection = GetDBContext();
 
-            var refsetrepository = new RefSetRepo(DbContextConnection);
-            var refsettermrepository = new RefSetTermRepo(DbContextConnection);
-            var reftermrepositiry = new RefTermRepo(DbContextConnection);
+            var refsetrepository = new RefSetRepository(DbContextConnection);
+            var refsettermrepository = new RefSetTermRepository(DbContextConnection);
+            var reftermrepositiry = new RefTermRepository(DbContextConnection);
             var option = new DbContextOptionsBuilder<BookRepository>().UseInMemoryDatabase(databaseName: "AddressBookDB").Options;
             var bookrepo = new BookRepository(option);
 

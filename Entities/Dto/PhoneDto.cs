@@ -9,7 +9,7 @@ namespace Entities.Dto
     public class PhoneDto
     {
         public string PhoneNumber { get; set; }
-        public Phonereference Phonereference { get; set; }
+        public Phonereference type { get; set; }
     }
 
     public class PhoneUpdationDto : PhoneDto

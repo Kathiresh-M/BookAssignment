@@ -13,7 +13,7 @@ using System.Security.Claims;
 namespace AddressBookAssignment.Controllers
 {
     [ApiController]
-    [Authorize]
+    
     public class MetaDataController : ControllerBase
     {
         private readonly IRefSetService _refSetService;
@@ -38,6 +38,7 @@ namespace AddressBookAssignment.Controllers
         /// <param name="Id">Id of reference set</param>
         /// <returns>refernce set data</returns>
         [HttpGet]
+        [Authorize]
         [Route("api/metadata/refsetdetails/{id}")]
         public IActionResult GetRefSet(Guid Id)
         {
@@ -75,6 +76,7 @@ namespace AddressBookAssignment.Controllers
         /// <param name="refSetData">reference set data</param>
         /// <returns>refernce set data with Id</returns>
         [HttpPost]
+        [Authorize]
         [Route("api/metadata/refset")]
         public IActionResult AddRefSet([FromBody] RefSetCreationDto refSetData)
         {
@@ -114,6 +116,7 @@ namespace AddressBookAssignment.Controllers
         /// <param name="Id">reference set Id</param>
         /// <returns>no content</returns>
         [HttpDelete]
+        [Authorize]
         [Route("api/metadata/refset/{Id}")]
         public IActionResult DeleteRefSet(Guid Id)
         {
@@ -145,6 +148,7 @@ namespace AddressBookAssignment.Controllers
         /// <param name="Id">reference term Id</param>
         /// <returns>refernce term data with Id</returns>
         [HttpGet]
+        [Authorize]
         [Route("api/metadata/refterm/{Id}")]
         public IActionResult GetRefTerm(Guid Id)
         {
@@ -176,6 +180,7 @@ namespace AddressBookAssignment.Controllers
         /// <param name="refTermData">refernce term data to create</param>
         /// <returns>refernce term data with Id</returns>
         [HttpPost]
+        [Authorize]
         [Route("api/metadata/refterm/{refsetId}")]
         public IActionResult AddRefTerm(Guid refSetId, [FromBody] RefTermCreationDto refTermData)
         {
@@ -219,6 +224,7 @@ namespace AddressBookAssignment.Controllers
         /// <param name="refSetId">reference set Id</param>
         /// <returns>list of reference terms</returns>
         [HttpGet]
+        [Authorize]
         [Route("refset/all/{refsetId}")]
         public IActionResult GetAllRefTerm(Guid refSetId)
         {
@@ -256,6 +262,7 @@ namespace AddressBookAssignment.Controllers
         /// <param name="reftermkey">reference set Id</param>
         /// <returns>return key reference</returns>
         [HttpGet]
+        [Authorize]
         [Route("api/metadata/refset/{key}")]
         public IActionResult Mappingdata(string key)
         {
@@ -290,6 +297,7 @@ namespace AddressBookAssignment.Controllers
 
 
         [HttpGet]
+        [Authorize]
         [Route("api/metadata/refsat/{key}")]
         public IActionResult Mappingdta(string key)
         {

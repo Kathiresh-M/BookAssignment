@@ -17,18 +17,19 @@ using Services;
 using Microsoft.Extensions.Configuration;
 using Services.Helper.Contractconnect;
 using Microsoft.AspNetCore.Mvc;
+using AddressBookAssignment;
 
 namespace AddressBookXUnittest
 {
     public class UserTests
     {
-        private readonly Mock<ILogger<UserController>> _logger;
+        private readonly Mock<ILogger<Usercontroller>> _logger;
         private readonly IMapper _mapper;
         private IConfiguration config;
 
         public UserTests()
         {
-            _logger = new Mock<ILogger<UserController>>();
+            _logger = new Mock<ILogger<Usercontroller>>();
             _mapper = new Mapper(new MapperConfiguration(map =>
             {
                 map.CreateMap<User, UserReturnDto>();
@@ -70,13 +71,12 @@ namespace AddressBookXUnittest
         {
             var DbContextConnection = GetDBContext();
 
-            var usesrrepository = new UserRepo(DbContextConnection);
+            var usesrrepository = new UserRepository(DbContextConnection);
             var password = new Password();
-            var jwt = new JWTService(config);
 
-            var servicefile = new UserService(usesrrepository, password, jwt);
+            var servicefile = new Userservice(usesrrepository, password);
 
-            var controllerfile = new UserController(servicefile, _mapper, _logger.Object);
+            var controllerfile = new Usercontroller(servicefile, _mapper, _logger.Object);
 
             UserDto userdata = new UserDto()
             {
@@ -100,21 +100,20 @@ namespace AddressBookXUnittest
         {
             var DbContextConnection = GetDBContext();
 
-            var usesrrepository = new UserRepo(DbContextConnection);
+            var usesrrepository = new UserRepository(DbContextConnection);
             var password = new Password();
-            var jwt = new JWTService(config);
 
-            var servicefile = new UserService(usesrrepository, password, jwt);
+            var servicefile = new Userservice(usesrrepository, password);
 
-            var controllerfile = new UserController(servicefile, _mapper, _logger.Object);
+            var controllerfile = new Usercontroller(servicefile, _mapper, _logger.Object);
 
             UserDto userDto = new UserDto()
             {
-                UserName = "kathir",
-                Password = "Kathir@123"
+                UserName = "kathiresh",
+                Password = "Kathir@1234"
             };
 
-            var result = controllerfile.AuthUser(userDto);
+            var result = controllerfile.AuthUsers(userDto);
 
             Assert.NotNull(result);
             Assert.IsType<UnauthorizedObjectResult>(result);

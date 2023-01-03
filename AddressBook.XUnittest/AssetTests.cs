@@ -265,15 +265,15 @@ namespace AddressBookXUnittest
         {
             var DbContextConnection = GetDBContext();
 
-            var assetrepository = new AssetRepo(DbContextConnection);
-            var assdressbookrepository = new AddressBookRepo(DbContextConnection);
+            var assetrepository = new AssetRepository(DbContextConnection);
+            var assdressbookrepository = new AddressBookRepository(DbContextConnection);
             var assetservice = new AssetService(assetrepository, assdressbookrepository);
 
             var assetcontrollerfile = new AssetController(assetservice, _mapper);
 
             Guid validdownloadfileId = Guid.Parse("cdacf151-8f59-445f-898a-a8e5fa0ecac9");
 
-            var result = assetcontrollerfile.DownloadAsset(validdownloadfileId);
+            var result = assetcontrollerfile.DownloadAssert(validdownloadfileId);
 
             var finalresult = Assert.IsType<OkObjectResult>(result);
             FileContentResult filedata = finalresult.Value as FileContentResult;
@@ -291,8 +291,8 @@ namespace AddressBookXUnittest
         {
             var DbContextConnection = GetDBContext();
 
-            var assetrepository = new AssetRepo(DbContextConnection);
-            var assdressbookrepository = new AddressBookRepo(DbContextConnection);
+            var assetrepository = new AssetRepository(DbContextConnection);
+            var assdressbookrepository = new AddressBookRepository(DbContextConnection);
             var assetservice = new AssetService(assetrepository, assdressbookrepository);
 
             var assetcontrollerfile = new AssetController(assetservice, _mapper);
@@ -315,8 +315,8 @@ namespace AddressBookXUnittest
         {
             var DbContextConnection = GetDBContext();
 
-            var assetrepository = new AssetRepo(DbContextConnection);
-            var addressbookrepository = new AddressBookRepo(DbContextConnection);
+            var assetrepository = new AssetRepository(DbContextConnection);
+            var addressbookrepository = new AddressBookRepository(DbContextConnection);
 
            // var userrepository = new UserRepo(DbContextConnection);
             //var passwordhas = new Password();
@@ -346,8 +346,8 @@ namespace AddressBookXUnittest
         {
             var DbContextConnection = GetDBContext();
 
-            var assetrepository = new AssetRepo(DbContextConnection);
-            var addressbookrepository = new AddressBookRepo(DbContextConnection);
+            var assetrepository = new AssetRepository(DbContextConnection);
+            var addressbookrepository = new AddressBookRepository(DbContextConnection);
 
             // var userrepository = new UserRepo(DbContextConnection);
             //var passwordhas = new Password();
