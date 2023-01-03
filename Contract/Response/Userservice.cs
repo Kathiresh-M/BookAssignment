@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Services.Helper.Contractconnect
 {
-    public class Userservice
+    public class Userservice 
     {
         private readonly IUserRepo _userRepo;
         private readonly IPassword _password;
@@ -26,15 +26,6 @@ namespace Services.Helper.Contractconnect
 
         public TokenResponse AuthUser(UserDto userData)
         {
-            /*var user = _userRepo.GetUser(userData.UserName);
-
-            if (user == null)
-                return new TokenResponse(false, "User not authenticated", null, null);
-
-            if (_password.PasswordMatches(userData.Password, user.Password))
-                return new TokenResponse(true, "", _jwtService.GenerateSecurityToken(user), "bearer");
-
-            return new TokenResponse(false, "User not authenticated", null, null);*/
             return new TokenResponse(true, "User not authenticated", null, null);
 
         }

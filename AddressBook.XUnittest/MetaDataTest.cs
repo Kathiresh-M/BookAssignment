@@ -62,7 +62,6 @@ namespace AddressBookXUnittest
             };
 
             context.Users.Add(userdata);
-            context.SaveChanges();
 
             AddressBookDatabase addressbookdata = new AddressBookDatabase
             {
@@ -73,7 +72,6 @@ namespace AddressBookXUnittest
             };
 
             context.AddressBooks.Add(addressbookdata);
-            context.SaveChanges();
 
             Email emaildata = new Email
             {
@@ -85,7 +83,6 @@ namespace AddressBookXUnittest
             };
 
             context.Emails.Add(emaildata);
-            context.SaveChanges();
 
             Address addressdata = new Address
             {
@@ -102,7 +99,6 @@ namespace AddressBookXUnittest
             };
 
             context.Addresses.Add(addressdata);
-            context.SaveChanges();
 
             Phone phonedata = new Phone
             {
@@ -114,7 +110,6 @@ namespace AddressBookXUnittest
             };
 
             context.Phones.Add(phonedata);
-            context.SaveChanges();
 
             context.RefSets.AddRange(new RefSet
             {
@@ -142,8 +137,6 @@ namespace AddressBookXUnittest
                Description = "email details"
            });
 
-            //context.RefSets.AddRange(refsetdata);
-            context.SaveChanges();
 
             context.RefTerms.AddRange(new RefTerm
             {
@@ -188,7 +181,6 @@ namespace AddressBookXUnittest
                 Description = "work email"
             });
 
-            context.SaveChanges();
 
             context.RefSetTerm.AddRange(new RefSetTerm
             {

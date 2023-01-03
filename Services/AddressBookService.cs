@@ -275,22 +275,6 @@ namespace Services
             return new MessageResponse(true, null);
         }
 
-
-        //Get Count
-        /*public CountResponse GetCount(Guid userId)
-        {
-            _log.Info("Get AddressBook Count");
-            var count = _addressBookRepo.GetAddressBookCount(userId);
-
-            if(count == 0)
-            {
-                return new CountResponse(false, null, new CountDto { Count = count });
-            }
-
-            return new CountResponse(true, null, new CountDto { Count = count });
-        }
-        */
-        
         public CountResponse GetCount()
         {
             _log.Info("Get AddressBook Count");

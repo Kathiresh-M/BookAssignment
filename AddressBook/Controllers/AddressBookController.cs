@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contract;
+using Contract.Response;
 using Entities.Dto;
 using Entities.RequestDto;
 using log4net;
@@ -55,7 +56,7 @@ namespace AddressBookAssignment.Controllers
                 {
 
                 _log.Info("Sent data to AddressBook data" + addressBookData + "" + tokenUserId);
-                var response = _addressBookService.CreateAddressBook(addressBookData, tokenUserId);
+                AddressBookAddResponse response = _addressBookService.CreateAddressBook(addressBookData, tokenUserId);
 
                 if (!response.IsSuccess && response.Message.Contains("already exists"))
                     {
@@ -97,7 +98,7 @@ namespace AddressBookAssignment.Controllers
                 try
                 {
                     _log.Info("Sent data to get AddressBook method");
-                    var response = _addressBookService.GetAddressBook(addressBookId, tokenUserId);
+                    AddressBookResponse response = _addressBookService.GetAddressBook(addressBookId, tokenUserId);
 
                 if (!response.IsSuccess)
                 {
@@ -131,8 +132,8 @@ namespace AddressBookAssignment.Controllers
 
             Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
 
-           
-            var addressBooksToReturn = _addressBookService.GetAddressBooks(tokenUserId, resourceParameter);
+
+            PagedList<AddressBookReturnDto> addressBooksToReturn = _addressBookService.GetAddressBooks(tokenUserId, resourceParameter);
 
             var metaData = new
             {
@@ -166,7 +167,7 @@ namespace AddressBookAssignment.Controllers
             }
             Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
 
-                var response = _addressBookService.UpdateAddressBook(addressBookData, addressBookId, tokenUserId);
+                AddressBookAddResponse response = _addressBookService.UpdateAddressBook(addressBookData, addressBookId, tokenUserId);
 
                 if (!response.IsSuccess && response.Message.Contains("Additional") || response.Message.Contains("duplication") || response.Message.Contains("not valid"))
                 {
@@ -198,7 +199,7 @@ namespace AddressBookAssignment.Controllers
 
             try
             {
-                var response = _addressBookService.GetCount();
+                CountResponse response = _addressBookService.GetCount();
 
                 _log.Info("Get Address Book Count");
                 return Ok(response.Count);
@@ -232,7 +233,7 @@ namespace AddressBookAssignment.Controllers
                     return NotFound("Address book not found.");
                 }
 
-                var deleteResponse = _addressBookService.DeleteAddressBook(addressBookId, tokenUserId);
+                MessageResponse deleteResponse = _addressBookService.DeleteAddressBook(addressBookId, tokenUserId);
 
                 _log.Info("Address was deleted successfully");
                 return Ok("AddressBook " + addressBookId + " was deleted successfully");

@@ -25,7 +25,6 @@ namespace AddressBookXUnittest
     {
         private readonly Mock<ILogger<Usercontroller>> _logger;
         private readonly IMapper _mapper;
-        private IConfiguration config;
 
         public UserTests()
         {

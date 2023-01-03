@@ -3554,3 +3554,440 @@ FROM "RefTerms" AS r
 WHERE r.id = @__refTermId_0
 LIMIT 2
 2023-01-03 09:05:52,330 [8] INFO  AddressBookAssignment.Controllers.AddressBookController [(null)] - Get All Address Book
+2023-01-03 10:19:45,387 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Now listening on: https://localhost:7258
+2023-01-03 10:19:45,416 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Now listening on: http://localhost:5258
+2023-01-03 10:19:45,420 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-01-03 10:19:45,422 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Development
+2023-01-03 10:19:45,425 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\Users\Kathiresh M\source\repos\BookAssignment\AddressBook
+2023-01-03 10:20:01,791 [12] INFO  AddressBookAssignment.Controllers.AddressBookController [(null)] - Start Address Book 
+2023-01-03 10:20:01,796 [12] INFO  Services.AddressBookService [(null)] - Get All AddressBook using User Id and Url
+2023-01-03 10:20:04,681 [12] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (85ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT u.id, u.first_name, u.last_name, u.password, u.user_name
+FROM "user" AS u
+WHERE u.id = @__userId_0
+LIMIT 2
+2023-01-03 10:20:04,909 [12] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (7ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.first_name, a.last_name, a.user_id
+FROM "AddressBooks" AS a
+WHERE a.user_id = @__userId_0
+2023-01-03 10:20:05,002 [12] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (7ms) [Parameters=[@__AddressBookId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.address_book_id, a.content, a.download_url, a.file_name, a.file_type, a.size, a.user_id
+FROM "Assets" AS a
+WHERE a.address_book_id = @__AddressBookId_0
+LIMIT 2
+2023-01-03 10:20:05,078 [12] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT e.id, e.address_book_id, e.email_address, e.email_type_id, e.user_id
+FROM email AS e
+2023-01-03 10:20:05,122 [12] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (4ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 10:20:05,171 [12] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (6ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 10:20:05,223 [12] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT p.id, p.address_book_id, p.phone_number, p.phone_type_id, p.user_id
+FROM "Phones" AS p
+2023-01-03 10:20:05,269 [12] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 10:20:05,276 [12] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 10:20:05,298 [12] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.address_book_id, a.address_type_id, a.city, a.country_type_id, a.line_1, a.line_2, a.state_name, a.user_id, a.zip_code
+FROM "Addresses" AS a
+2023-01-03 10:20:05,348 [12] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 10:20:05,353 [12] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 10:20:05,358 [12] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 10:20:05,363 [12] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 10:20:05,371 [12] INFO  AddressBookAssignment.Controllers.AddressBookController [(null)] - Get All Address Book
+2023-01-03 10:49:27,376 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Now listening on: https://localhost:7258
+2023-01-03 10:49:27,410 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Now listening on: http://localhost:5258
+2023-01-03 10:49:27,419 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-01-03 10:49:27,422 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Development
+2023-01-03 10:49:27,424 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\Users\Kathiresh M\source\repos\BookAssignment\AddressBook
+2023-01-03 11:14:28,437 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Now listening on: https://localhost:7258
+2023-01-03 11:14:28,465 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Now listening on: http://localhost:5258
+2023-01-03 11:14:28,469 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-01-03 11:14:28,472 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Development
+2023-01-03 11:14:28,474 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\Users\Kathiresh M\source\repos\BookAssignment\AddressBook
+2023-01-03 11:15:30,061 [3] INFO  AddressBookAssignment.Controllers.AddressBookController [(null)] - Get An AddressBookc137b1cd-c374-4da6-a098-fb06b0df03aa
+2023-01-03 11:15:30,062 [3] INFO  AddressBookAssignment.Controllers.AddressBookController [(null)] - Sent data to get AddressBook method
+2023-01-03 11:15:30,063 [3] INFO  Services.AddressBookService [(null)] - GetAddressBook using addressBookId and UserId in service layer
+2023-01-03 11:15:32,440 [3] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (54ms) [Parameters=[@__AddressBookId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.first_name, a.last_name, a.user_id
+FROM "AddressBooks" AS a
+WHERE a.id = @__AddressBookId_0
+LIMIT 2
+2023-01-03 11:15:32,609 [3] INFO  Services.AddressBookService [(null)] - Get Email in service layer
+2023-01-03 11:15:32,627 [3] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT e.id, e.address_book_id, e.email_address, e.email_type_id, e.user_id
+FROM email AS e
+2023-01-03 11:15:32,667 [3] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (5ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 11:15:32,697 [3] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (2ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 11:15:32,738 [3] INFO  Services.AddressBookService [(null)] - Get Phone in service layer
+2023-01-03 11:15:32,763 [3] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT p.id, p.address_book_id, p.phone_number, p.phone_type_id, p.user_id
+FROM "Phones" AS p
+2023-01-03 11:15:32,791 [3] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 11:15:32,797 [3] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (0ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 11:15:32,799 [3] INFO  Services.AddressBookService [(null)] - Get Address in service layer
+2023-01-03 11:15:32,817 [3] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.address_book_id, a.address_type_id, a.city, a.country_type_id, a.line_1, a.line_2, a.state_name, a.user_id, a.zip_code
+FROM "Addresses" AS a
+2023-01-03 11:15:32,866 [3] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 11:15:32,872 [3] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 11:15:32,881 [3] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 11:15:32,888 [3] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 11:15:32,890 [3] INFO  Services.AddressBookService [(null)] - Get Asset Id in service layer
+2023-01-03 11:15:32,918 [3] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (5ms) [Parameters=[@__AddressBookId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.address_book_id, a.content, a.download_url, a.file_name, a.file_type, a.size, a.user_id
+FROM "Assets" AS a
+WHERE a.address_book_id = @__AddressBookId_0
+LIMIT 2
+2023-01-03 11:15:33,004 [3] INFO  Services.AddressBookService [(null)] - get data in service layer and sent data to controller.
+2023-01-03 11:15:33,005 [3] INFO  AddressBookAssignment.Controllers.AddressBookController [(null)] - Get an AddressBook Successfully Entities.Dto.AddressBookReturnDto
+2023-01-03 11:45:27,658 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Now listening on: https://localhost:7258
+2023-01-03 11:45:27,682 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Now listening on: http://localhost:5258
+2023-01-03 11:45:27,687 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-01-03 11:45:27,690 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Development
+2023-01-03 11:45:27,692 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\Users\Kathiresh M\source\repos\BookAssignment\AddressBook
+2023-01-03 11:46:11,138 [18] INFO  AddressBookAssignment.Controllers.AddressBookController [(null)] - Start Address Book 
+2023-01-03 11:46:11,141 [18] INFO  Services.AddressBookService [(null)] - Get All AddressBook using User Id and Url
+2023-01-03 11:46:13,410 [18] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (63ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT u.id, u.first_name, u.last_name, u.password, u.user_name
+FROM "user" AS u
+WHERE u.id = @__userId_0
+LIMIT 2
+2023-01-03 11:46:13,588 [18] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (6ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.first_name, a.last_name, a.user_id
+FROM "AddressBooks" AS a
+WHERE a.user_id = @__userId_0
+2023-01-03 11:46:13,674 [18] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (6ms) [Parameters=[@__AddressBookId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.address_book_id, a.content, a.download_url, a.file_name, a.file_type, a.size, a.user_id
+FROM "Assets" AS a
+WHERE a.address_book_id = @__AddressBookId_0
+LIMIT 2
+2023-01-03 11:46:13,731 [18] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT e.id, e.address_book_id, e.email_address, e.email_type_id, e.user_id
+FROM email AS e
+2023-01-03 11:46:13,765 [18] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (3ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 11:46:13,810 [18] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (3ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 11:46:13,879 [18] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT p.id, p.address_book_id, p.phone_number, p.phone_type_id, p.user_id
+FROM "Phones" AS p
+2023-01-03 11:46:13,918 [18] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 11:46:13,924 [18] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 11:46:13,947 [18] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.address_book_id, a.address_type_id, a.city, a.country_type_id, a.line_1, a.line_2, a.state_name, a.user_id, a.zip_code
+FROM "Addresses" AS a
+2023-01-03 11:46:13,998 [18] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 11:46:14,006 [18] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 11:46:14,016 [18] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 11:46:14,026 [18] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 11:46:14,036 [18] INFO  AddressBookAssignment.Controllers.AddressBookController [(null)] - Get All Address Book
+2023-01-03 11:46:23,077 [19] INFO  AddressBookAssignment.Controllers.AddressBookController [(null)] - Get An AddressBookc137b1cd-c374-4da6-a098-fb06b0df03aa
+2023-01-03 11:46:23,077 [19] INFO  AddressBookAssignment.Controllers.AddressBookController [(null)] - Sent data to get AddressBook method
+2023-01-03 11:46:23,080 [19] INFO  Services.AddressBookService [(null)] - GetAddressBook using addressBookId and UserId in service layer
+2023-01-03 11:46:23,132 [19] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__AddressBookId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.first_name, a.last_name, a.user_id
+FROM "AddressBooks" AS a
+WHERE a.id = @__AddressBookId_0
+LIMIT 2
+2023-01-03 11:46:23,134 [19] INFO  Services.AddressBookService [(null)] - Get Email in service layer
+2023-01-03 11:46:23,141 [19] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT e.id, e.address_book_id, e.email_address, e.email_type_id, e.user_id
+FROM email AS e
+2023-01-03 11:46:23,148 [19] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 11:46:23,156 [19] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 11:46:23,157 [19] INFO  Services.AddressBookService [(null)] - Get Phone in service layer
+2023-01-03 11:46:23,164 [19] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT p.id, p.address_book_id, p.phone_number, p.phone_type_id, p.user_id
+FROM "Phones" AS p
+2023-01-03 11:46:23,173 [19] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 11:46:23,181 [19] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 11:46:23,182 [19] INFO  Services.AddressBookService [(null)] - Get Address in service layer
+2023-01-03 11:46:23,192 [19] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.address_book_id, a.address_type_id, a.city, a.country_type_id, a.line_1, a.line_2, a.state_name, a.user_id, a.zip_code
+FROM "Addresses" AS a
+2023-01-03 11:46:23,201 [19] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 11:46:23,208 [19] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 11:46:23,214 [19] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 11:46:23,223 [19] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 11:46:23,223 [19] INFO  Services.AddressBookService [(null)] - Get Asset Id in service layer
+2023-01-03 11:46:23,231 [19] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__AddressBookId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.address_book_id, a.content, a.download_url, a.file_name, a.file_type, a.size, a.user_id
+FROM "Assets" AS a
+WHERE a.address_book_id = @__AddressBookId_0
+LIMIT 2
+2023-01-03 11:46:23,233 [19] INFO  Services.AddressBookService [(null)] - get data in service layer and sent data to controller.
+2023-01-03 11:46:23,234 [19] INFO  AddressBookAssignment.Controllers.AddressBookController [(null)] - Get an AddressBook Successfully Entities.Dto.AddressBookReturnDto
+2023-01-03 12:08:37,145 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Now listening on: https://localhost:7258
+2023-01-03 12:08:37,176 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Now listening on: http://localhost:5258
+2023-01-03 12:08:37,181 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-01-03 12:08:37,184 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Development
+2023-01-03 12:08:37,185 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\Users\Kathiresh M\source\repos\BookAssignment\AddressBook
+2023-01-03 12:09:03,161 [15] INFO  AddressBookAssignment.Controllers.UserController [(null)] - Get Authorization
+2023-01-03 12:09:05,470 [15] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (82ms) [Parameters=[@__userName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT u.id, u.first_name, u.last_name, u.password, u.user_name
+FROM "user" AS u
+WHERE u.user_name = @__userName_0
+LIMIT 2
+2023-01-03 12:09:05,646 [15] INFO  AddressBookAssignment.Controllers.UserController [(null)] - kathir user logged in.
+2023-01-03 12:09:18,755 [6] INFO  AddressBookAssignment.Controllers.AddressBookController [(null)] - Start Address Book 
+2023-01-03 12:09:18,757 [6] INFO  Services.AddressBookService [(null)] - Get All AddressBook using User Id and Url
+2023-01-03 12:09:18,840 [6] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (24ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT u.id, u.first_name, u.last_name, u.password, u.user_name
+FROM "user" AS u
+WHERE u.id = @__userId_0
+LIMIT 2
+2023-01-03 12:09:18,871 [6] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.first_name, a.last_name, a.user_id
+FROM "AddressBooks" AS a
+WHERE a.user_id = @__userId_0
+2023-01-03 12:09:18,931 [6] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (7ms) [Parameters=[@__AddressBookId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.address_book_id, a.content, a.download_url, a.file_name, a.file_type, a.size, a.user_id
+FROM "Assets" AS a
+WHERE a.address_book_id = @__AddressBookId_0
+LIMIT 2
+2023-01-03 12:09:18,975 [6] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT e.id, e.address_book_id, e.email_address, e.email_type_id, e.user_id
+FROM email AS e
+2023-01-03 12:09:19,030 [6] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (5ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 12:09:19,084 [6] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (2ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 12:09:19,136 [6] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT p.id, p.address_book_id, p.phone_number, p.phone_type_id, p.user_id
+FROM "Phones" AS p
+2023-01-03 12:09:19,177 [6] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (2ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 12:09:19,184 [6] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 12:09:19,209 [6] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.address_book_id, a.address_type_id, a.city, a.country_type_id, a.line_1, a.line_2, a.state_name, a.user_id, a.zip_code
+FROM "Addresses" AS a
+2023-01-03 12:09:19,267 [6] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 12:09:19,274 [6] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 12:09:19,286 [6] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (2ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 12:09:19,295 [6] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 12:09:19,306 [6] INFO  AddressBookAssignment.Controllers.AddressBookController [(null)] - Get All Address Book
+2023-01-03 12:10:05,896 [15] INFO  AddressBookAssignment.Controllers.AddressBookController [(null)] - Start Address Book 
+2023-01-03 12:10:05,897 [15] INFO  Services.AddressBookService [(null)] - Get All AddressBook using User Id and Url
+2023-01-03 12:10:05,971 [15] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT u.id, u.first_name, u.last_name, u.password, u.user_name
+FROM "user" AS u
+WHERE u.id = @__userId_0
+LIMIT 2
+2023-01-03 12:10:05,978 [15] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.first_name, a.last_name, a.user_id
+FROM "AddressBooks" AS a
+WHERE a.user_id = @__userId_0
+2023-01-03 12:10:05,983 [15] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__AddressBookId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.address_book_id, a.content, a.download_url, a.file_name, a.file_type, a.size, a.user_id
+FROM "Assets" AS a
+WHERE a.address_book_id = @__AddressBookId_0
+LIMIT 2
+2023-01-03 12:10:05,988 [15] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT e.id, e.address_book_id, e.email_address, e.email_type_id, e.user_id
+FROM email AS e
+2023-01-03 12:10:05,995 [15] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 12:10:06,000 [15] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 12:10:06,007 [15] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT p.id, p.address_book_id, p.phone_number, p.phone_type_id, p.user_id
+FROM "Phones" AS p
+2023-01-03 12:10:06,015 [15] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 12:10:06,022 [15] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 12:10:06,030 [15] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.address_book_id, a.address_type_id, a.city, a.country_type_id, a.line_1, a.line_2, a.state_name, a.user_id, a.zip_code
+FROM "Addresses" AS a
+2023-01-03 12:10:06,038 [15] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 12:10:06,046 [15] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 12:10:06,053 [15] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refSetMappingId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.ref_set_id, r.ref_term_id
+FROM "RefSetTerm" AS r
+WHERE r.id = @__refSetMappingId_0
+LIMIT 2
+2023-01-03 12:10:06,062 [15] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__refTermId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT r.id, r.description, r.key
+FROM "RefTerms" AS r
+WHERE r.id = @__refTermId_0
+LIMIT 2
+2023-01-03 12:10:06,064 [15] INFO  AddressBookAssignment.Controllers.AddressBookController [(null)] - Get All Address Book
+2023-01-03 12:10:53,010 [15] INFO  Microsoft.EntityFrameworkCore.Database.Command [(null)] - Executed DbCommand (1ms) [Parameters=[@__AssetId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT a.id, a.address_book_id, a.content, a.download_url, a.file_name, a.file_type, a.size, a.user_id
+FROM "Assets" AS a
+WHERE a.id = @__AssetId_0
+LIMIT 2

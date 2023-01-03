@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contract;
+using Contract.Response;
 using Entities;
 using Entities.Dto;
 using log4net;
@@ -11,7 +12,6 @@ using System.Security.Claims;
 namespace AddressBookAssignment.Controllers
 {
     [ApiController]
-
     public class AssetController : ControllerBase
     {
         private readonly IAssetService _assetService;
@@ -42,8 +42,6 @@ namespace AddressBookAssignment.Controllers
             _log.Info("Upload file");
 
             Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
-            //Guid tokenUserId;
-            //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
 
             if (addressBookId == null || addressBookId == Guid.Empty)
             {
@@ -56,7 +54,8 @@ namespace AddressBookAssignment.Controllers
                 var asset = new Asset();
                 asset.Id = Guid.NewGuid();
                 asset.DownloadUrl = GenerateDownloadUrl(addressBookId);
-                var response = _assetService.AddAsset(addressBookId, tokenUserId, asset, file);
+
+                AssetResponse response = _assetService.AddAsset(addressBookId, tokenUserId, asset, file);
 
                 if (!response.IsSuccess && response.Message.Contains("not found"))
                 {
@@ -99,7 +98,7 @@ namespace AddressBookAssignment.Controllers
                 return BadRequest("Not a valid user ID.");
             }
 
-            var response = _assetService.GetAsset(Id, tokenUseId);
+            AssetResponse response = _assetService.GetAsset(Id, tokenUseId);
 
             if (!response.IsSuccess)
             {
@@ -107,9 +106,6 @@ namespace AddressBookAssignment.Controllers
             }
 
             byte[] bytes = Convert.FromBase64String(response.Asset.Content);
-
-            var result = File(bytes, response.Asset.FileType, response.Asset.FileName);
-
 
             return File(bytes, response.Asset.FileType, response.Asset.FileName);
         }
@@ -122,39 +118,6 @@ namespace AddressBookAssignment.Controllers
         private string GenerateDownloadUrl(Guid addressBookId)
         {
             return ("https://localhost:7258/api/asset/"+ addressBookId);
-        }
-
-
-
-
-
-        [HttpGet]
-        [Authorize]
-        [Route("api/assert/{Id}")]
-        public IActionResult DownloadAssert(Guid Id)
-        {
-            Guid tokenUseId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
-            //Guid tokenUserId;
-            //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
-
-            if (Id == null || Id == Guid.Empty)
-            {
-                _log.Error("Trying to access asset data with not a valid user id by user: " + tokenUseId);
-                return BadRequest("Not a valid user ID.");
-            }
-
-            var response = _assetService.GetAsset(Id, tokenUseId);
-
-            if (!response.IsSuccess)
-            {
-                return NotFound(response.Message);
-            }
-
-            byte[] bytes = Convert.FromBase64String(response.Asset.Content);
-
-            var result = File(bytes, response.Asset.FileType, response.Asset.FileName);
-
-            return Ok(result);
         }
 
     }
