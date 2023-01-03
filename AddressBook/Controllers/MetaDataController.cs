@@ -287,40 +287,5 @@ namespace AddressBookAssignment.Controllers
                 throw new Exception("Given Data is Not Correct Formate"+ex);
             }
         }
-
-
-
-
-
-
-
-
-
-        [HttpGet]
-        [Authorize]
-        [Route("api/metadata/refsat/{key}")]
-        public IActionResult Mappingdta(string key)
-        {
-            _log.Info("MetaData Key Reference start");
-
-            //Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
-
-            //Guid tokenUserId;
-            //Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
-
-            try
-            {
-                var response = _refSetService.Metadat(key);
-
-                _log.Info("MetaData Key Reference is executed successfully");
-                return Ok(response);
-            }
-            catch (FormatException ex)
-            {
-                _log.Error("InValid Data formate" + ex);
-                throw new Exception("Given Data is Not Correct Formate" + ex);
-            }
-        }
-
     }
 }
