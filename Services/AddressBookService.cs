@@ -50,10 +50,13 @@ namespace Services
             _log.Info("CreateAddressBook in AddressBook service layer");
             try
             {
-                var addressBookCheck = _addressBookRepo.GetAddressBookByName(addressBookData.FirstName, addressBookData.LastName);
+                //var addressBookCheck = _addressBookRepo.GetAddressBookByName(addressBookData.FirstName, addressBookData.LastName);
+                var addressBookCheck = _addressBookRepo.GetAddressBookByNames(addressBookData.FirstName, addressBookData.LastName);
 
-                //if (addressBookCheck != null && addressBookCheck.UserId == userId)
-                //    return new AddressBookAddResponse(false, "Address book already exists with same first and last name.", null);
+                if(addressBookCheck!= null)
+                {
+                    return new AddressBookAddResponse(false, "already exists", null);
+                }
                 _log.Info("Email start to add");
                 var emailsAdded = addEmails(addressBookData.Emails);
                 if (!emailsAdded.IsSuccess)
@@ -111,8 +114,7 @@ namespace Services
             }
             catch
             {
-
-                return new AddressBookAddResponse(false, "Address book already exists with same first and last name.", null);
+                return new AddressBookAddResponse(false, "Address book already exists", null);
             }
         }
 
@@ -318,7 +320,7 @@ namespace Services
             }
 
             if (!unique)
-                return new EmailResponse(false, "Email data is not valid", null);
+                return new EmailResponse(false, "Email data is not valid already exist", null);
 
             for (int i = 0; i < emails.Count(); i++)
             {
@@ -565,8 +567,8 @@ namespace Services
 
                 emailsList.Add(new Email
                 {
-                    //Id = emails.ElementAt(i).Id,
-                    Id = Guid.Parse("dc57a504-d9a8-42a2-ad4c-83303f11e21a"),
+                    Id = emails.ElementAt(i).Id,
+                    //Id = Guid.Parse("dc57a504-d9a8-42a2-ad4c-83303f11e21a"),
                     EmailAddress = emails.ElementAt(i).EmailAddress,
                     EmailTypeId = mapping.Id
                 });
@@ -575,7 +577,14 @@ namespace Services
             foreach (var email in emailsList)
             {
                 int index = emailsInDB.ToList().FindIndex(emailFromDB => emailFromDB.Id == email.Id);
+                if (index == -1)
+                {
+                    return new EmailResponse(false, "Unable to find email id", emailsInDB);
+                }
                 var emailFromDB = emailsInDB.ToList().ElementAt(index);
+                if(emailFromDB == null) {
+                    return new EmailResponse(false, "Unable to find email id", emailsInDB);
+                }
                 emailFromDB.EmailAddress = email.EmailAddress;
                 emailFromDB.EmailTypeId = email.EmailTypeId;
             }
@@ -646,8 +655,8 @@ namespace Services
 
                 phonesList.Add(new Phone
                 {
-                    //Id = phones.ElementAt(i).Id,
-                    Id = Guid.Parse("36d15017-5b28-4692-9e7a-a730bacda282"),
+                    Id = phones.ElementAt(i).Id,
+                    //Id = Guid.Parse("36d15017-5b28-4692-9e7a-a730bacda282"),
                     PhoneNumber = phones.ElementAt(i).PhoneNumber,
                     PhoneTypeId = mapping.Id,
                 }) ;
@@ -707,8 +716,8 @@ namespace Services
 
                 addressesList.Add(new Address
                 {
-                    //Id = address.Id,
-                    Id = Guid.Parse("57c0d845-b430-4b68-a229-ec10397a6605"),
+                    Id = address.Id,
+                    //Id = Guid.Parse("57c0d845-b430-4b68-a229-ec10397a6605"),
                     Line1 = address.Line1,
                     Line2 = address.Line2,
                     City = address.City,

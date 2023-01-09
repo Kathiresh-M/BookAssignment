@@ -1,6 +1,8 @@
 ﻿using Contract.IHelper;
+using Contract.Response;
 using Entities;
 using Entities.Dto;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -38,7 +40,11 @@ namespace Services.Helper
             _context.Phones.AddRange(addressBookData.Phones);
         }
 
-        public AddressBookDatabase GetAddressBookByName(string firstName, string lastName)
+        /*public AddressBookDatabase GetAddressBookByName(string firstName, string lastName)
+        {
+            return _context.AddressBooks.SingleOrDefault(addressBook => addressBook.FirstName == firstName && addressBook.LastName == lastName);
+        }*/
+        public AddressBookDatabase GetAddressBookByNames(string firstName, string lastName)
         {
             return _context.AddressBooks.SingleOrDefault(addressBook => addressBook.FirstName == firstName && addressBook.LastName == lastName);
         }
@@ -48,14 +54,6 @@ namespace Services.Helper
         {
             return _context.AddressBooks.SingleOrDefault(addressBook => addressBook.Id == AddressBookId);
         }
-
-
-        /*public int GetAddressBookCount(Guid userId)
-        {
-            return (from ab in _context.AddressBooks
-                    where ab.UserId == userId
-                    select ab).ToList().Count();
-        }*/
 
         public int GetAddressBookCount()
         {

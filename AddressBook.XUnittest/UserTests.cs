@@ -15,9 +15,9 @@ using Repository;
 using Services.Helper;
 using Services;
 using Microsoft.Extensions.Configuration;
-using Services.Helper.Contractconnect;
 using Microsoft.AspNetCore.Mvc;
 using AddressBookAssignment;
+using Services.Helper.Contractconnect;
 
 namespace AddressBookXUnittest
 {

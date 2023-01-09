@@ -107,8 +107,25 @@ namespace Services
 
        public MetadataDto Metadata(string key)
         {
+            if (key == "PHONE_TYPE")
+            {
+                string name = "personalphone";
+                var meta = new MetadataDto();
+                meta.Id = _bookRepository.RefTerms.Where(_a => _a.Key == name).Select(a => a.Id).FirstOrDefault();
+                meta.Key = "personal";
+                meta.Description = "personal phone";
+                return meta;
+            }
+            if (key == "EMAIL_TYPE")
+            {
+                string name = "personal";
+                var meta = new MetadataDto();
+                meta.Id = _bookRepository.RefTerms.Where(_a => _a.Key == name).Select(a => a.Id).FirstOrDefault();
+                meta.Key = name;
+                meta.Description = "personal email";
+                return meta;
+            }
             var metadata = new MetadataDto();
-            //metadata.Id = _bookRepository.RefSets.Where(a => a.Set == key).Select(a => a.Id).SingleOrDefault();
             Guid refsetid = _bookRepository.RefSets.Where(a => a.Set == key).Select(a => a.Id).SingleOrDefault();
 
             var reftermid = _bookRepository.RefSetTerm.Where(a=> a.RefSetId == refsetid).Select(a => a.RefTermId).SingleOrDefault();

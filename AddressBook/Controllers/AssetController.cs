@@ -74,7 +74,7 @@ namespace AddressBookAssignment.Controllers
             catch(NullReferenceException ex)
             {
                 _log.Error("Null Reference exception");
-                return BadRequest(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -89,25 +89,23 @@ namespace AddressBookAssignment.Controllers
         public IActionResult DownloadAsset(Guid Id)
         {
             Guid tokenUseId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
-            //Guid tokenUserId;
-            //var isValidToken = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out tokenUserId);
+                if (Id == null || Id == Guid.Empty)
+                {
+                    _log.Debug("Trying to access asset data with not a valid user id by user: " + tokenUseId);
+                    return BadRequest("Not a valid user ID.");
+                }
 
-            if (Id == null || Id == Guid.Empty)
-            {
-                _log.Error("Trying to access asset data with not a valid user id by user: " + tokenUseId);
-                return BadRequest("Not a valid user ID.");
-            }
+                AssetResponse response = _assetService.GetAsset(Id, tokenUseId);
 
-            AssetResponse response = _assetService.GetAsset(Id, tokenUseId);
+                if (!response.IsSuccess)
+                {
 
-            if (!response.IsSuccess)
-            {
-                return NotFound(response.Message);
-            }
+                    return NotFound(response.Message);
+                }
 
-            byte[] bytes = Convert.FromBase64String(response.Asset.Content);
+                byte[] bytes = Convert.FromBase64String(response.Asset.Content);
 
-            return File(bytes, response.Asset.FileType, response.Asset.FileName);
+                return File(bytes, response.Asset.FileType, response.Asset.FileName);
         }
 
         /// <summary>
@@ -119,7 +117,6 @@ namespace AddressBookAssignment.Controllers
         {
             return ("https://localhost:7258/api/asset/"+ addressBookId);
         }
-
     }
 
 }

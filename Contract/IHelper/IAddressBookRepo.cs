@@ -11,7 +11,8 @@ namespace Contract.IHelper
     public interface IAddressBookRepo
     {
         void CreateAddressBook(AddressBookDto addressBookData);
-        AddressBookDatabase GetAddressBookByName(string firstName, string lastName);
+        //AddressBookDatabase GetAddressBookByName(string firstName, string lastName);
+        AddressBookDatabase GetAddressBookByNames(string firstName, string lastName);
 
         AddressBookDatabase GetAddressBookById(Guid AddressBookId);
 

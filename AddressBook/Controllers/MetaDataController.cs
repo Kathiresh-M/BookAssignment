@@ -13,7 +13,7 @@ using System.Security.Claims;
 namespace AddressBookAssignment.Controllers
 {
     [ApiController]
-    
+
     public class MetaDataController : ControllerBase
     {
         private readonly IRefSetService _refSetService;
@@ -22,6 +22,13 @@ namespace AddressBookAssignment.Controllers
         private readonly ILog _log;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Initializes a new instance of the class
+        /// </summary>
+        /// <param name="refSetService">Communication between refset respository and controller</param>
+        /// <param name="refTermService">Communication between refterm respository and controller</param>
+        /// <param name="mapper">used to map dto</param>
+        /// <returns></returns>
         public MetaDataController(IRefSetService refSetService,
             IRefTermService refTermService, IMapper mapper)
         {
@@ -58,7 +65,7 @@ namespace AddressBookAssignment.Controllers
             {
                 _log.Info("Get RefSet By Id");
                 var response = _refSetService.GetRefSetById(Id);
-               
+
                 var refSetToReturn = _mapper.Map<RefSetToReturnDto>(response.RefSet);
 
                 return Ok(refSetToReturn);
@@ -66,7 +73,7 @@ namespace AddressBookAssignment.Controllers
             catch (Exception ex)
             {
                 _log.Error("Not Found Exception check you code");
-                return NotFound("Not found exception please check your code" + ex);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -106,7 +113,7 @@ namespace AddressBookAssignment.Controllers
             }
             catch (Exception ex)
             {
-                return NotFound("Not found exception please check your code" + ex);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -281,10 +288,10 @@ namespace AddressBookAssignment.Controllers
                 _log.Info("MetaData Key Reference is executed successfully");
                 return Ok(response);
             }
-            catch(FormatException ex)
+            catch (FormatException ex)
             {
-                _log.Error("InValid Data formate"+ex);
-                throw new Exception("Given Data is Not Correct Formate"+ex);
+                _log.Error("InValid Data formate" + ex);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
     }

@@ -21,6 +21,13 @@ namespace AddressBookAssignment.Controllers
         private readonly ILogger<AddressBookController> _logger;
         private readonly ILog _log;
 
+        /// <summary>
+        /// Initializes a new instance of the class
+        /// </summary>
+        /// <param name="addressBookService">Communication between respository and controller</param>
+        /// <param name="mapper">used to map dto</param>
+        /// <param name="logger">Used to log the data</param>
+        /// <returns></returns>
         public AddressBookController(IAddressBookService addressBookService, IMapper mapper, ILogger<AddressBookController> logger)
         {
             _addressBookService = addressBookService;
@@ -56,22 +63,28 @@ namespace AddressBookAssignment.Controllers
                 {
 
                 _log.Info("Sent data to AddressBook data" + addressBookData + "" + tokenUserId);
+
                 AddressBookAddResponse response = _addressBookService.CreateAddressBook(addressBookData, tokenUserId);
 
+                
                 if (!response.IsSuccess && response.Message.Contains("already exists"))
                     {
                         _log.Debug("Data Conflict");
                         return Conflict(response.Message);
                     }
-                
-                    _log.Info("Address Book was created" + response.AddressBook.Id);
-                    return Ok($"Address book created with ID: {response.AddressBook.Id}");
+                if (response.IsSuccess == false)
+                {
+                    return NotFound("Error when the metadata is not found in the database");
+                }
+
+                _log.Info("Address Book was created" + response.AddressBook.Id);
+                    return Created("Address book created with ID: ",response.AddressBook.Id);
                 }
                 catch (Exception ex)
                 {
-                    _log.Error("Address was not found");
-                    return NotFound("Not found exception please check your code" + ex);
-                }
+                    _log.Error("Something went wrong");
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         /// <summary>
@@ -113,7 +126,7 @@ namespace AddressBookAssignment.Controllers
                 catch (Exception ex)
                 {
                     _log.Error("Address was not found");
-                    return BadRequest("Not found exception please check your code" + ex);
+                    return StatusCode(StatusCodes.Status500InternalServerError);
                 }
         }
 
@@ -166,7 +179,8 @@ namespace AddressBookAssignment.Controllers
                 return BadRequest("Enter valid addressbook data");
             }
             Guid tokenUserId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
-
+            try
+            {
                 AddressBookAddResponse response = _addressBookService.UpdateAddressBook(addressBookData, addressBookId, tokenUserId);
 
                 if (!response.IsSuccess && response.Message.Contains("Additional") || response.Message.Contains("duplication") || response.Message.Contains("not valid"))
@@ -174,13 +188,18 @@ namespace AddressBookAssignment.Controllers
                     return Conflict(response.Message);
                 }
 
-            if (!response.IsSuccess && response.Message.Contains("not found"))
-            {
-                _log.Debug("Address was not found");
-                return NotFound(response.Message);
+                if (!response.IsSuccess && response.Message.Contains("not found"))
+                {
+                    _log.Debug("Address was not found");
+                    return NotFound(response.Message);
+                }
+                _log.Info("Address was updated successfully");
+                return Ok("Address book updated successfully.");
             }
-            _log.Info("Address was updated successfully");
-            return Ok("Address book updated successfully.");
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         /// <summary>
@@ -207,7 +226,7 @@ namespace AddressBookAssignment.Controllers
             catch(Exception ex)
             {
                 _log.Error("User Not found"+ex);
-                return NotFound("user not found"+ex);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -240,7 +259,7 @@ namespace AddressBookAssignment.Controllers
             }
             catch(Exception ex)
             {
-                return NotFound("Data is not Found");
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
     }

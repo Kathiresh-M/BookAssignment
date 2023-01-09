@@ -20,6 +20,13 @@ namespace AddressBookAssignment.Controllers
 
         private readonly ILog _log;
 
+        /// <summary>
+        /// Initializes a new instance of the class
+        /// </summary>
+        /// <param name="userService">Communication between respository and controller</param>
+        /// <param name="mapper">used to map dto</param>
+        /// <param name="logger">Used to log the data</param>
+        /// <returns></returns>
         public UserController(IUserService userService, 
             IMapper mapper, ILogger<UserController> logger)
         {
@@ -51,6 +58,11 @@ namespace AddressBookAssignment.Controllers
             try
             {
                 var response = _userService.AuthUser(user);
+
+                if(response.AccessToken == null && response.TokenType == null) 
+                {
+                    return Unauthorized();
+                }
                 _log.Info(user.UserName + " user logged in.");
 
                 var token = new Token(response.AccessToken, response.TokenType);
@@ -60,7 +72,7 @@ namespace AddressBookAssignment.Controllers
             catch (Exception ex)
             {
                 _log.Error("Unauthorized user");
-                return Unauthorized("User not authenticated"+ex);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 

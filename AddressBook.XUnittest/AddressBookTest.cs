@@ -43,6 +43,7 @@ namespace AddressBookXUnittest
         private readonly IPhoneRepo _phonerepository;
         private readonly IUserRepo _userrepository;
         private readonly IAddressBookService addressBookService;
+
         public AddressBookTest()
         {
             _logger= new Mock<ILogger<AddressBookController>>();
@@ -462,7 +463,7 @@ namespace AddressBookXUnittest
 
             var result = _controller.CreateAddressBook(createdata);
 
-            Assert.IsType<OkObjectResult>(result);
+            Assert.IsType<CreatedResult>(result);
         }
 
         /// <summary>
@@ -638,6 +639,7 @@ namespace AddressBookXUnittest
                 {
                     new EmailUpdationDto()
                     {
+                        Id = Guid.Parse("dc57a504-d9a8-42a2-ad4c-83303f11e21a"),
                         EmailAddress = "kathir1202@gmail.com",
                         type = keyvalueemail
                     }
@@ -646,6 +648,7 @@ namespace AddressBookXUnittest
                 {
                     new AddressUpdationDto()
                     {
+                        Id = Guid.Parse("57c0d845-b430-4b68-a229-ec10397a6605"),
                         Line1 = "kathir street",
                         Line2 = "90 feet road",
                         City = "cbe",
@@ -659,6 +662,7 @@ namespace AddressBookXUnittest
                 {
                     new PhoneUpdationDto()
                     {
+                        Id = Guid.Parse("36d15017-5b28-4692-9e7a-a730bacda282"),
                         PhoneNumber = "9557711212",
                         type = phoneref
                     }
