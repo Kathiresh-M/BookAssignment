@@ -70,7 +70,7 @@ namespace AddressBookAssignment.Controllers
                 if (!response.IsSuccess && response.Message.Contains("already exists"))
                     {
                         _log.Debug("Data Conflict");
-                        return Conflict(response.Message);
+                        return Conflict("Error messages like email address already exists and invalid value for a field");
                     }
                 if (response.IsSuccess == false)
                 {
@@ -82,9 +82,9 @@ namespace AddressBookAssignment.Controllers
                 }
                 catch (Exception ex)
                 {
-                    _log.Error("Something went wrong");
-                    return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+                    _log.Error("Something went wrong", ex);
+                    return StatusCode(StatusCodes.Status500InternalServerError,ex);
+                }
         }
 
         /// <summary>
@@ -125,8 +125,8 @@ namespace AddressBookAssignment.Controllers
 
                 catch (Exception ex)
                 {
-                    _log.Error("Address was not found");
-                    return StatusCode(StatusCodes.Status500InternalServerError);
+                    _log.Error("Something went wrong", ex);
+                    return StatusCode(StatusCodes.Status500InternalServerError,ex);
                 }
         }
 
@@ -198,6 +198,7 @@ namespace AddressBookAssignment.Controllers
             }
             catch(Exception ex)
             {
+                _log.Error("Something went wrong", ex);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
@@ -225,7 +226,7 @@ namespace AddressBookAssignment.Controllers
             }
             catch(Exception ex)
             {
-                _log.Error("User Not found"+ex);
+                _log.Error("Something went wrong", ex);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
@@ -259,6 +260,7 @@ namespace AddressBookAssignment.Controllers
             }
             catch(Exception ex)
             {
+                _log.Error("Something went wrong", ex);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }

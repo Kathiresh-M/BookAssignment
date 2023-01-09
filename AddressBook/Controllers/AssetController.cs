@@ -19,6 +19,12 @@ namespace AddressBookAssignment.Controllers
 
         private readonly ILog _log;
 
+        /// <summary>
+        /// Initializes a new instance of the class
+        /// </summary>
+        /// <param name="assetService">Communication between respository and controller</param>
+        /// <param name="mapper">used to map dto</param>
+        /// <returns></returns>
         public AssetController(IAssetService assetService, 
              IMapper mapper)
         {
@@ -71,9 +77,9 @@ namespace AddressBookAssignment.Controllers
 
                 return Ok(assetToReturn);
             }
-            catch(NullReferenceException ex)
+            catch(Exception ex)
             {
-                _log.Error("Null Reference exception");
+                _log.Error("Something went wrong",ex);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
@@ -89,12 +95,15 @@ namespace AddressBookAssignment.Controllers
         public IActionResult DownloadAsset(Guid Id)
         {
             Guid tokenUseId = Guid.Parse("e4229706-9a92-4dfa-8bad-82c88aab6644");
+
                 if (Id == null || Id == Guid.Empty)
                 {
                     _log.Debug("Trying to access asset data with not a valid user id by user: " + tokenUseId);
                     return BadRequest("Not a valid user ID.");
                 }
 
+            try
+            {
                 AssetResponse response = _assetService.GetAsset(Id, tokenUseId);
 
                 if (!response.IsSuccess)
@@ -106,6 +115,12 @@ namespace AddressBookAssignment.Controllers
                 byte[] bytes = Convert.FromBase64String(response.Asset.Content);
 
                 return File(bytes, response.Asset.FileType, response.Asset.FileName);
+            }
+            catch(Exception ex)
+            {
+                _log.Error("Something went wrong", ex);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         /// <summary>

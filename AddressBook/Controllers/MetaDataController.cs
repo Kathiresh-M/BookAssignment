@@ -72,7 +72,7 @@ namespace AddressBookAssignment.Controllers
             }
             catch (Exception ex)
             {
-                _log.Error("Not Found Exception check you code");
+                _log.Error("Something went wrong", ex);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
@@ -106,13 +106,13 @@ namespace AddressBookAssignment.Controllers
 
                 var refSetToReturn = _mapper.Map<RefSetToReturnDto>(response.RefSet);
 
-                //return CreatedAtRoute("GetRefSet", new { Id = refSetToReturn.Id }, refSetToReturn);
                 CreatedAtRoute("GetRefSet", new { Id = refSetToReturn.Id }, refSetToReturn);
 
                 return Ok(refSetToReturn);
             }
             catch (Exception ex)
             {
+                _log.Error("Something went wrong", ex);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
@@ -282,15 +282,15 @@ namespace AddressBookAssignment.Controllers
                 if (response.Id == Guid.Empty)
                 {
                     _log.Error("Key is not found");
-                    return NotFound("Key not found");
+                    return NotFound();
                 }
 
                 _log.Info("MetaData Key Reference is executed successfully");
                 return Ok(response);
             }
-            catch (FormatException ex)
+            catch (Exception ex)
             {
-                _log.Error("InValid Data formate" + ex);
+                _log.Error("Something went wrong", ex);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }

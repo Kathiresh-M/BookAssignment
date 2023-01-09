@@ -71,7 +71,7 @@ namespace AddressBookAssignment.Controllers
             }
             catch (Exception ex)
             {
-                _log.Error("Unauthorized user");
+                _log.Error("Something went wrong", ex);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
@@ -100,7 +100,8 @@ namespace AddressBookAssignment.Controllers
             }
             catch (Exception ex)
             {
-                return Conflict(response.Message);
+                _log.Error("Something went wrong", ex);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -134,7 +135,8 @@ namespace AddressBookAssignment.Controllers
             }
             catch (Exception ex)
             {
-                return NotFound("Not found exception please check your code" + ex);
+                _log.Error("Something went wrong", ex);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
